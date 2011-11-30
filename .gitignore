@@ -1,0 +1,6 @@
+# No importar archivos "compilados" de Python.
+*.pyc
+
+# No importar las variables de configuración del sistema.
+settings.py
+
