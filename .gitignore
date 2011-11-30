@@ -1,3 +1,7 @@
+# No importar las siguientes extensiones.
+*~
+*.swp
+
 # No importar archivos "compilados" de Python.
 *.pyc
 
