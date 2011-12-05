@@ -1,0 +1,56 @@
+<
+<!-- Se incluye el template base del html -->
+{% extends "base_template.html"%} {% block content%}
+<script>
+	$(document).ready(function() {
+		$("#submit").click(function() {
+			var username = $("#username").val();
+			var password = $("#password").val();
+
+			if (!username || !password) {
+				$('.empty').fadeIn(250);
+			} else {
+				$('#cuerpo').fadeOut(250);
+				document.form_login.submit();
+			}
+		});
+	});
+</script>
+
+<div id="contenido_login">
+  <div id="login">
+    <form action="" method="post" id="form_login">
+      {% csrf_token %}
+      <table id="login_table">
+        <tr>
+          <td>Usuario:</td>
+          <td><input type="text" name="username" id="username" /></td>
+        </tr>
+        <tr>
+          <td>Clave:</td>
+
+          <td><input type="password" name="password" id="password" />
+          </td>
+         </tr>
+         <tr><td></td>
+            <td><input type="image" src="static/images/entrar.png" id="submit"
+                width=60px height=40px>
+            </td>
+         </tr>
+      </table>
+      <input type="hidden" name="next" value="/time/plus/32/" />
+    </form>
+    <a href="javascript:popup()">¿Olvidó su contraseña?</a>
+                  {% if form.errors %}
+    <p class="error">Usuario o Contraseña Inválidos</p>
+    {% endif %}
+      <span class="empty"
+        style="display: none; color: red; font-size: 14px">Ingrese
+        su cédula y su contraseña por favor<br />
+      </span> 
+  </div>
+</div>
+
+{% endblock%}
+
+<!-- Javascript -->
