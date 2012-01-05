@@ -1,6 +1,6 @@
-<
 <!-- Se incluye el template base del html -->
-{% extends "base_template.html"%} {% block content%}
+{% extends "base_template.html"%}
+{% block content%}
 <script>
 	$(document).ready(function() {
 		$("#submit").click(function() {
@@ -9,6 +9,7 @@
 
 			if (!username || !password) {
 				$('.empty').fadeIn(250);
+				return false;
 			} else {
 				$('#cuerpo').fadeOut(250);
 				document.form_login.submit();
@@ -34,11 +35,11 @@
          </tr>
          <tr><td></td>
             <td><input type="image" src="static/images/entrar.png" id="submit"
-                width=60px height=40px>
+                width=60px height=40px >
             </td>
          </tr>
       </table>
-      <input type="hidden" name="next" value="/time/plus/32/" />
+      <input type="hidden" name="next" value="/principal/" />
     </form>
     <a href="javascript:popup()">¿Olvidó su contraseña?</a>
                   {% if form.errors %}

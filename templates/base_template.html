@@ -16,17 +16,16 @@
   src="static/js/jquery-ui-1.8.16.custom.min.js"></script>
 </head>
 <script>
-	$(document).ready(function() {
-		$('#cuerpo').fadeIn(1000);
-	});
+    $(document).ready(function() {
+        $('#cuerpo').fadeIn(1000);
+    });
 </script>
 <body>
   <div id="cuerpo" style="display: none;">
     <div id="header"></div>
     <div id="contenedor_principal">
     {%block content%}
-    
-    {% endblock %}
+    {% endblock%}
     </div>
   </div>
 </body>
