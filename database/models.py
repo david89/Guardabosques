@@ -8,27 +8,8 @@
 # into your database.
 
 from django.db import models
+from datetime import date
 
-class AuthGroup(models.Model):
-    id = models.IntegerField(primary_key=True)
-    name = models.CharField(unique=True, max_length=80)
-    class Meta:
-        db_table = u'auth_group'
-
-class AuthUser(models.Model):
-    id = models.IntegerField(primary_key=True)
-    username = models.CharField(unique=True, max_length=30)
-    first_name = models.CharField(max_length=30)
-    last_name = models.CharField(max_length=30)
-    email = models.CharField(max_length=75)
-    password = models.CharField(max_length=128)
-    is_staff = models.BooleanField()
-    is_active = models.BooleanField()
-    is_superuser = models.BooleanField()
-    last_login = models.DateTimeField()
-    date_joined = models.DateTimeField()
-    class Meta:
-        db_table = u'auth_user'
 
 class DjangoContentType(models.Model):
     id = models.IntegerField(primary_key=True)
@@ -37,43 +18,6 @@ class DjangoContentType(models.Model):
     model = models.CharField(max_length=100)
     class Meta:
         db_table = u'django_content_type'
-        
-class AuthPermission(models.Model):
-    id = models.IntegerField(primary_key=True)
-    name = models.CharField(max_length=50)
-    content_type = models.ForeignKey(DjangoContentType)
-    codename = models.CharField(max_length=100)
-    class Meta:
-        db_table = u'auth_permission'
-        
-class AuthGroupPermissions(models.Model):
-    id = models.IntegerField(primary_key=True)
-    group = models.ForeignKey(AuthGroup)
-    permission = models.ForeignKey(AuthPermission)
-    class Meta:
-        db_table = u'auth_group_permissions'
-
-class AuthUserUserPermissions(models.Model):
-    id = models.IntegerField(primary_key=True)
-    user = models.ForeignKey(AuthUser)
-    permission = models.ForeignKey(AuthPermission)
-    class Meta:
-        db_table = u'auth_user_user_permissions'
-
-class AuthUserGroups(models.Model):
-    id = models.IntegerField(primary_key=True)
-    user = models.ForeignKey(AuthUser)
-    group = models.ForeignKey(AuthGroup)
-    class Meta:
-        db_table = u'auth_user_groups'
-
-class AuthMessage(models.Model):
-    id = models.IntegerField(primary_key=True)
-    user = models.ForeignKey(AuthUser)
-    message = models.TextField()
-    class Meta:
-        db_table = u'auth_message'
-
 
 class DjangoSession(models.Model):
     session_key = models.CharField(max_length=40, primary_key=True)
@@ -117,6 +61,12 @@ class Usuario(models.Model):
     limitaciones_medicas = models.TextField()
     class Meta:
         db_table = u'usuario'
+    
+    def inicializar(self):
+        self.carne = None
+        self.horas_laboradas = 0
+        self.horas_aprobadas = 0
+        self.fecha_inicio = date.today()
 
 class Jornada(models.Model):
     identificador = models.IntegerField(primary_key=True)
