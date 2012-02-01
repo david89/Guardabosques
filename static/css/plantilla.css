@@ -7,7 +7,6 @@ h1 {
 p { margin-bottom: 1.5em; }
 
 .clearing { clear: both; }
-.alert, .error { color: #FF0000; }
 
 ol.forms {
 	list-style: none;

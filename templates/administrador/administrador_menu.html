@@ -1,13 +1,18 @@
 <script>
     $(document).ready(function() {
-        $('#admin_inicio').click(function() {
-            $('#contenido_center').load('/hello/');
+        $('#admin_usuarios').click(function() {
+            $('#contenido_center').load('/administrador/usuarios/');
+        });
+    });
+    $(document).ready(function() {
+        $('#admin_actividades').click(function() {
+            $('#contenido_center').load('/administrador/actividad/');
         });
     });
 </script>
 <table>
   <tr>
-    <td id="boton"><a id="admin_inicio" href="#">
+    <td id="boton"><a id="admin_inicio" href="/administrador/">
         &nbsp;&nbsp;Inicio </a></td>
   </tr>
   <tr>
@@ -15,8 +20,8 @@
         &nbsp;&nbsp;Bùsquedas </a></td>
   </tr>
   <tr>
-    <td id="boton"><a id="admin_usuarios" href="/administrador/registrar_usuario/">
-        &nbsp;&nbsp;Agregar Usuarios </a></td>
+    <td id="boton"><a id="admin_usuarios" href="#">
+        Gestionar Usuarios</a></td>
   </tr>
 
   <tr>

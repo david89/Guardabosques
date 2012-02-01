@@ -1,0 +1,21 @@
+{% extends "administrador/administrador_base.html"%}
+<!-- LOL --> 
+{%block contenido_center%}
+<div class="contenido_titulo">
+  <h2>Modificar Usuario</h2>
+</div>
+<center>
+  {% if error %}
+  <p style="color: red;">El usuario con cedula "{{ error }}"  que desea modificar no existe</p>
+  {% else %}
+  <p style="color: green;">Los cambios al usuario se han realizado exitosamente</p>
+  {% endif%}
+  <table>
+    <tr>
+      <td id="boton"><a id="admin_usuarios"
+        href="/administrador/usuarios/consultar_usuario/">
+          &nbsp;&nbsp;Volver</a></td>
+    </tr>
+  </table>
+</center>
+{%endblock%}

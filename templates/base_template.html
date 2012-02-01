@@ -1,31 +1,45 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" 
     "http://www.w3.org/TR/html4/loose.dtd">
+{% load static %} {% get_static_prefix as STATIC_PREFIX %}
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Sistema de Bitácoras de los Guardabosques USB</title>
-<link rel="stylesheet" href="static/css/style.css" type="text/css">
+<link rel="stylesheet" href="{{ STATIC_PREFIX }}css/style.css"
+  type="text/css">
 <link type="text/css"
-  href="static/css/ui-lightness/jquery-ui-1.8.16.custom.css"
+  href="{{ STATIC_PREFIX }}css/south-street/jquery-ui-1.8.17.custom.css"
   rel="stylesheet" />
-<link type="text/css" href="static/css/tablas.css" rel="stylesheet" />
-<link type="text/css" href="static/css/plantilla.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" media="screen"
+  href="{{ STATIC_PREFIX }}css/JqGrid/ui.jqgrid.css" />
+<!-- ejemplos -->
 
-<script type="text/javascript" src="static/js/jquery-1.7.1.min.js"></script>
 <script type="text/javascript"
-  src="static/js/jquery-ui-1.8.16.custom.min.js"></script>
+  src="{{ STATIC_PREFIX }}js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript"
+  src="{{ STATIC_PREFIX }}js/jquery-ui-1.8.17.custom.min.js"></script>
+
+<script type="text/javascript"
+  src="{{ STATIC_PREFIX }}js/JqGrid/grid.locale-es.js"></script>
+<script type="text/javascript"
+  src="{{ STATIC_PREFIX }}js/JqGrid/jquery.jqGrid.min.js"></script>
+
+<script type="text/javascript"
+  src="{{ STATIC_PREFIX }}js/validate/jquery.validate.min.js"></script>
+<script type="text/javascript"
+  src="{{ STATIC_PREFIX }}js/jquery.cycle.all.js"></script>
+<script type="text/javascript"
+  src="{{ STATIC_PREFIX }}js/init.js"></script>
 </head>
 <script>
-    $(document).ready(function() {
-        $('#cuerpo').fadeIn(1000);
-    });
+	$(document).ready(function() {
+		$('#cuerpo').fadeIn(1000);
+	});
 </script>
 <body>
   <div id="cuerpo" style="display: none;">
     <div id="header"></div>
-    <div id="contenedor_principal">
-    {%block content%}
-    {% endblock%}
+    <div id="contenedor_principal">{%block content%} {% endblock%}
     </div>
   </div>
 </body>

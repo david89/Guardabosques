@@ -1,0 +1,61 @@
+{% extends "estudiante/estudiante_base.html"%}
+<!-- Lol -->
+{%block contenido_center%}
+<!-- Lol -->
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#id_fecha').addClass('ui-widget ui-corner-all required');
+		$('#id_minutos').addClass('ui-widget ui-corner-all required');
+		$('#id_actividad_0').addClass('ui-widget ui-corner-all required');
+	});
+
+	$(document).ready(function() {
+		$(".form").validate({
+			messages : {
+				fecha : {
+					required : 'Por favor ingrese la fecha de la jornada',
+				},
+				minutos:{
+					required : 'Por favor ingrese la duración en minutos de la jornada',
+					range: 'La duración en minutos debe estar entre 1 y 1440 minutos'
+				},
+				actividad: {
+					required: 'Por favor debe escoger alguna actividad asociada a la jornada'
+				}
+			},
+			rules: {
+			    minutos: {
+			      required: true,
+			      range: [1, 1440]
+			    }
+			  }
+		});
+	});
+	$(document).ready(function() {
+	$("#id_fecha").datepicker({ dateFormat: 'yy-mm-dd' });
+	});
+</script>
+<style type="text/css">
+</style>
+<div class="contenido_titulo">
+  <h2>Registrar Jornada</h2>
+</div>
+
+<center>
+  <div class="ui-widget-content ui-corner-all"
+    style="width: 700px; padding: 10px;">
+    {% if form.errors %}
+    <p style="color: red;">Por favor corrija los siguientes errores</p>
+    {% endif %}
+    <form class="form"
+      action="/estudiante/jornada/registrar_jornada/"
+      method="POST">
+      <table>{{ form.as_table }}
+      </table>
+      <input
+        class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+        type="submit" value="Guardar Jornada  ">
+    </form>
+  </div>
+</center>
+{%endblock%}

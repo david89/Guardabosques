@@ -1,12 +1,27 @@
-
+<script>
+    $(document).ready(function() {
+        $('#estudiante_cuenta').click(function() {
+            $('#contenido_center').load('/estudiante/usuarios/modificar_usuario/');
+        });
+    });
+    $(document).ready(function() {
+        $('#estudiante_bitacora').click(function() {
+            $('#contenido_center').load('/estudiante/jornada/consultar_jornada/');
+        });
+    });
+</script>
 <table>
   <tr>
-    <td id="boton"><a id="estudiante_inicio" href="#">
-        &nbsp;&nbsp;Inicio </a></td>
+    <td id="boton"><a id="estudiante_inicio" href="/estudiante/">
+        &nbsp;&nbsp;Inico</a></td>
   </tr>
   <tr>
-    <td id="boton"><a id="estudiante_jornada" href="#">
-        &nbsp;&nbsp;A&ntilde;adir Jornada </a></td>
+    <td id="boton"><a id="estudiante_cuenta" href="#">
+        &nbsp;&nbsp;Cuenta</a></td>
+  </tr>
+  <tr>
+    <td id="boton"><a id="estudiante_jornada" href="/estudiante/jornada/registrar_jornada/">
+        &nbsp;&nbsp;Agregar Jornada </a></td>
   </tr>
   <tr>
     <td id="boton"><a id="estudiante_bitacora" href="#">

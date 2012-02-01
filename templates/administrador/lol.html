@@ -1,0 +1,178 @@
+{% extends "administrador/administrador_base.html"%} 
+{%block contenido_center%}
+<script>
+    $(document).ready(function() {
+        $("#myTable").tablesorter({
+            container : $("#pager")
+        });
+        ;
+    });
+
+    $(document).ready(function() {
+        $('div.contenido_titulo').click(function() {
+
+            var paraWidth = $('div.contenido_center').outerWidth();
+            var $titulo = $(this);
+            var switcherWidth = $titulo.outerWidth();
+            $titulo.css({
+                position : 'relative',
+                border : '5px solid red'
+            }).animate({
+                borderWidth : '5px',
+                width : '+=20px'
+            }, 'slow');
+
+        });
+    });
+    $(document).ready(function() {
+        $('p').eq(0).css('border', '1px solid #333');
+        $('p').eq(1).css('backgroundColor', '#ccc').hide();
+    });
+    $(document).ready(function() {
+        $('p').eq(0).css('border', '1px solid #333').click(function() {
+            $(this).slideUp('slow').next().slideDown('slow');
+        });
+        $('p').eq(1).css('backgroundColor', '#ccc').hide();
+    });
+    $(document).ready(function() {
+        $('#books').cycle();
+    });
+    $(document).ready(function() {
+        $('#books .title').resizable();
+    })
+
+    $(document).ready(function() {
+        $('#books').hover(function() {
+            $('#books .title').animate({
+                backgroundColor : '#eee',
+                color : '#000'
+            }, 1000);
+        }, function() {
+            $('#books .title').animate({
+                backgroundColor : '#000',
+                color : '#fff'
+            }, 1000);
+        });
+    });
+
+    $(document).ready(function() {
+        $('<div id="slider"></div>').slider({
+            min : 0,
+            max : 30
+        }).appendTo('#scroll');
+    });
+    
+    
+    $(document).ready(function() {
+        var $inventory = $('#inventory tbody');
+        var quantities = $inventory.find('td:nth-child(2)')
+          .map(function(index, qty) {
+              return $(qty).text();
+           }).get();
+        var sum = $.sum(quantities);
+        $('#sum').find('td:nth-child(2)').text(sum);
+         
+        var prices = $inventory.find('td:nth-child(3)')
+        .map(function(index, qty) {
+        return $(qty).text();
+        }).get();
+
+        var average = $.average(prices);
+            $('#average').find('td:nth-child(3)')
+            .text(average.toFixed(2));
+        
+    });
+    $(document).ready(function() {
+
+        $('button').putButton();
+    });
+
+</script>
+<div class="contenido_titulo">
+  <h2>Consultar Nuevos Usuarios</h2>
+</div>
+<center>
+  <table id="myTable" class="tablesorter">
+    {% if usuarios %}
+    <thead>
+      <tr>
+        <th>Cédula</th>
+        <th>Correo Electrónico</th>
+        <th>Modificar</th>
+        <th>Eliminar</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for usuario in usuarios %}
+      <tr>
+        <th>{{ usuario.cedula }}</th>
+        <th>{{ usuario.correo }}</th>
+        <th><a class="modificar"
+          href="/administrador/modificar_usuario/"></a></th>
+        <th><a class="eliminar"
+          href="/administrador/eliminar_usuario/"></a></th>
+      </tr>
+      {% endfor %} {% else %}
+      <p>No hay usuarios registrados en el sistema.</p>
+      {% endif %}
+    </tbody>
+  </table>
+  <p>The brave men, living and dead, who struggled here have
+    consecrated it, far above our poor power to add or detract. The
+    world will little note, nor long remember, what we say here, but it
+    can never forget what they did here. It is for us the living,
+    rather, to be dedicated here to the unfinished work which they who
+    fought here have thus far so nobly advanced.</p>
+  <p>It is rather for us to be here dedicated to the great task
+    remaining before us&mdash;that from these honored dead we take
+    increased devotion to that cause for which they gave the last full
+    measure of devotion&mdash;that we here highly resolve that these
+    dead shall not have died in vain&mdash;that this nation, under God,
+    shall have a new birth of freedom and that government of the people,
+    by the people, for the people, shall not perish from the earth.</p>
+
+  <ul id="books">
+    <li><img src="images/0042.jpg" alt="jQuery 1.4 Reference Guide" />
+      <div class="title">jQuery 1.4 Reference Guide</div>
+      <div class="author">Karl Swedberg</div>
+      <div class="author">Jonathan Chaffer</div></li>
+    <li><img src="images/2244.jpg" alt="jQuery Plugin Development" />
+      <div class="title">jQuery Plugin Development</div>
+      <div class="author">Giulio Bai</div></li>
+  </ul>
+  <div id="scroll"></div>
+  <button>Pause</button>
+
+
+</center>
+
+<div>
+  <table id="inventory">
+    <thead>
+      <tr class="one">
+        <th>Product</th> <th>Quantity</th> <th>Price</th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr id="sum" class="two">
+        <td>Total</td> <td></td> <td></td>
+      </tr>
+      <tr id="average">
+        <td>Average</td> <td></td> <td></td>
+      </tr>
+    </tfoot>
+    <tbody>
+      <tr>
+        <td>Spam</td> <td>4</td> <td>2.50</td>
+      </tr>
+      <tr>
+        <td>Egg</td> <td>12</td> <td>4.32</td>
+      </tr>
+      <tr>
+        <td>Gourmet Spam</td> <td>14</td> <td>7.89</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+{%endblock%}
