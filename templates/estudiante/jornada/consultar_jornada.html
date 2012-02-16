@@ -17,23 +17,6 @@
 			} ]
 		}).trigger("reloadGrid");
 	});
-	$(document).ready(function(){
-		$('#jqgrid_obj1').hover(function(){
-			$('#lobj1').toggleClass('ui-state-hover');
-		});
-		$('#jqgrid_obj2').hover(function(){
-            $('#lobj2').toggleClass('ui-state-hover');
-        });
-		$('#jqgrid_obj3').hover(function(){
-            $('#lobj3').toggleClass('ui-state-hover');
-        });
-		$('#jqgrid_obj4').hover(function(){
-            $('#lobj4').toggleClass('ui-state-hover');
-        });
-		$('#jqgrid_obj5').hover(function(){
-            $('#lobj5').toggleClass('ui-state-hover');
-        });
-	});
 </script>
 <div id="gestionar">
   <div class="contenido_titulo">
@@ -44,36 +27,19 @@
     <table id="jqgrid">
       <thead>
         <tr>
-          <th>Nombre</th>
-          <th>Descripción</th>
-          <th id="obj1">Objetivo A</th>
-          <th id="obj2">Objetivo B</th>
-          <th id="obj3">Objetivo C</th>
-          <th id="obj4">Objetivo D</th>
-          <th id="obj5">Objetivo E</th>
-          <th>Modificar</th>
-          <th>Eliminar</th>
+          <th>Fecha de Realización</th>
+          <th>Minutos</th>
+          <th>Multiplicador</th>
+          <th>Estado</th>
         </tr>
       </thead>
       <tbody>
         {% for jornada in jornada_list %}
         <tr>
-          <td>{{ jornada.nombre }}</td>
-          <td>{{ jornada.descripcion }}</td>
-          <td>{{ jornada.obj1 }}</td>
-          <td>{{ jornada.obj2 }}</td>
-          <td>{{ jornada.obj3 }}</td>
-          <td>{{ jornada.obj4 }}</td>
-          <td>{{ jornada.obj5 }}</td>
-          <td><a
-            href="/estudiante/jornada/modificar_jornada/{{ jornada.nombre }}/"><img
-              class="modificar"
-              src="{{STATIC_PREFIX}}images/editable.png" alt="modificar"
-              height="20" width="20" /></a></td>
-          <td><a
-            href="/estudiante/jornada/eliminar_jornada/{{ jornada.nombre }}/"><img
-              class="modificar" src="{{STATIC_PREFIX}}images/delete.png"
-              alt="modificar" height="20" width="20" /></a></td>
+          <td>{{ jornada.fecha }}</td>
+          <td>{{ jornada.minutos }}</td>
+          <td>{{ jornada.multiplicador }}</td>
+          <td>{{ jornada.estado }}</td>
         </tr>
         {% endfor %}
       </tbody>
@@ -82,16 +48,6 @@
     {% else %}
     <p>No hay jornadaes registradas en el sistema.</p>
     {% endif %}
-    <div id="leyenda" style="width:500px;">
-        <h3>Leyenda de Objetivos<h3>
-      <ul id="leyendalist" style="list-style-type: none;">
-        <li id="lobj1" class="ui-state-default">A: Educación y sensibilización a visitantes y vecinos de la USB</li>
-        <li id="lobj2" class="ui-state-default" >B: Manejo y restauración ambiental</li>
-        <li id="lobj3" class="ui-state-default" >C: Protección ambiental y de los visitantes</li>
-        <li id="lobj4" class="ui-state-default" >D: Seguimiento e información ambiental</li>
-        <li id="lobj5" class="ui-state-default" >E: Institucionalización y promoción del programa</li>
-      </ul>
-    </div>
 <br>
 <br>
 <br>

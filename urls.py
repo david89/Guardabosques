@@ -11,24 +11,36 @@ admin.autodiscover()
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
 # admin.autodiscover()
+from django.views.generic import list_detail, create_update
+from Guardabosques.database.models import Usuario
 
+# Formularios
+from formularios.formularios import AdminRegistrarUsuarioForm
+usuario_create = {
+'form_class' : AdminRegistrarUsuarioForm,
+'template_name' : 'administrador/usuarios/registrar_usuario.html',
+'post_save_redirect' : 'administrador/usuarios/registrar_usuario_exito.html',
+'login_required' : True,
+}
 
 urlpatterns = patterns('',
     (r'^admin/', include(admin.site.urls)),
-    ('^hello/$', hello),
-    ('^time/$', current_date),
-    (r'%s(?P<path>.*)$' % settings.STATIC_URL.lstrip('/'),
-     'django.views.static.serve', {'document_root' : settings.STATIC_ROOT }),
+    (r'^hello/$', hello),
+    (r'^time/$', current_date),
     (r'^accounts/login/$', login),
     (r'^accounts/logout/$', logout),
     ## principal
     (r'^principal/$', principal),
     ## Seccion del administrador
-    (r'^administrador/$', administrador_base),
-    (r'^administrador/registrar_usuario/$', administrador_registrar_usuario),
-    (r'^administrador/registrar_usuario_exito/$', administrador_registrar_usuario_exito),
-    ## Seccion del estudiante
-    (r'^estudiante/$', estudiante_base),
+
+#    (r'^administrador/$', administrador_base),
+    
+    ## Gestionar Usuario  
+#    (r'^administrador/gestionar_usuario/$', administrador_gestionar_usuario),
+#    (r'^administrador/consultar_usuario/$', administrador_consultar_usuario),
+#    (r'^administrador/registrar_usuario/$', administrador_registrar_usuario),
+#    (r'^administrador/registrar_usuario_exito/$', administrador_registrar_usuario_exito),
+    
     # Examples:
     # url(r'^$', 'pepe.views.home', name='home'),
     # url(r'^pepe/', include('pepe.foo.urls')),
@@ -39,3 +51,18 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     # url(r'^admin/', include(admin.site.urls)),
 )
+
+#from Guardabosques.administrador import urls
+urlpatterns += patterns('',
+    (r'^administrador/', include('Guardabosques.administrador.urls'))
+)
+
+#from Guardabosques.estudiante import urls
+urlpatterns += patterns('',
+    (r'^estudiante/', include('Guardabosques.estudiante.urls'))
+)
+
+urlpatterns += patterns('',
+(r'^usuarios/create/$', create_update.create_object, usuario_create)
+)
+

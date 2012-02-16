@@ -18,7 +18,7 @@ def gestionar_jornada(request):
 @csrf_exempt
 @login_required
 def consultar_jornada(request):
-    jornada = Jornada.objects.all()
+    jornada = Jornada.objects.filter(cedula_usuario=request.user.username)
     actividad = Actividad.objects.all()
     return render_to_response("estudiante/jornada/consultar_jornada.html", \
                               {'jornada_list': jornada})

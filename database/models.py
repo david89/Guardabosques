@@ -9,6 +9,7 @@
 
 from django.db import models
 from datetime import date
+from bitfield import BitField
 
 
 class DjangoContentType(models.Model):
@@ -39,21 +40,23 @@ class Carrera(models.Model):
     nombre = models.CharField(unique=True, max_length=50)
     class Meta:
         db_table = u'carrera'
-
+    def __unicode__(self):
+        return self.nombre
+        
 class Usuario(models.Model):
     cedula = models.CharField(max_length=8, primary_key=True)
-    carne = models.CharField(unique=True, max_length=8)
+    carne = models.CharField(unique=True, max_length=8, default = None)
     clave = models.CharField(max_length=64)
     nombres = models.CharField(max_length=50)
     apellidos = models.CharField(max_length=50)
     correo = models.CharField(unique=True, max_length=50)
     telefono_principal = models.CharField(max_length=11)
     telefono_opcional = models.CharField(max_length=11)
-    horas_laboradas = models.SmallIntegerField()
-    horas_aprobadas = models.SmallIntegerField()
+    horas_laboradas = models.SmallIntegerField(default=0)
+    horas_aprobadas = models.SmallIntegerField(default=0)
     estado = models.CharField(max_length=8)
     tipo = models.CharField(max_length=11)
-    fecha_inicio = models.DateField()
+    fecha_inicio = models.DateField(default = date.today())
     fecha_fin = models.DateField()
     zona = models.CharField(max_length=50)
     codigo_carrera = models.ForeignKey(Carrera, db_column='codigo_carrera')
@@ -69,9 +72,9 @@ class Usuario(models.Model):
         self.fecha_inicio = date.today()
 
 class Jornada(models.Model):
-    identificador = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True,db_column='identificador')
     cedula_usuario = models.ForeignKey(Usuario, db_column='cedula_usuario')
-    fecha = models.DateField()
+    fecha = models.CharField(max_length=10,blank=True)
     estado = models.CharField(max_length=9)
     minutos = models.SmallIntegerField()
     multiplicador = models.DecimalField(max_digits=4, decimal_places=1)
@@ -84,7 +87,7 @@ class OtroServicio(models.Model):
         db_table = u'otro_servicio'
 
 class Hizo(models.Model):
-    identificador = models.IntegerField(primary_key=True)
+    identificador = models.AutoField(primary_key=True, )
     horas = models.SmallIntegerField()
     cedula_usuario = models.ForeignKey(Usuario, db_column='cedula_usuario')
     nombre_otro_servicio = models.ForeignKey(OtroServicio, db_column='nombre_otro_servicio')
@@ -105,13 +108,19 @@ class Pertenece(models.Model):
 
 class Actividad(models.Model):
     nombre = models.CharField(max_length=50, primary_key=True)
-    descripcion = models.TextField()
-    objetivos = models.TextField() # This field type is a guess.
+    descripcion = models.TextField(blank=True)
+    obj1 = models.BooleanField(blank=True)
+    obj2 = models.BooleanField(blank=True)
+    obj3 = models.BooleanField(blank=True)
+    obj4 = models.BooleanField(blank=True)
+    obj5 = models.BooleanField(blank=True)
     class Meta:
         db_table = u'actividad'
+    def __unicode__(self):
+        return self.nombre
 
 class ConstituidaPor(models.Model):
-    identificador = models.IntegerField(primary_key=True)
+    identificador = models.AutoField(primary_key=True)
     nombre_actividad = models.ForeignKey(Actividad, db_column='nombre_actividad')
     identificador_jornada = models.ForeignKey(Jornada, db_column='identificador_jornada')
     fecha_inicio = models.DateField()
