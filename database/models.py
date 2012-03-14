@@ -1,79 +1,108 @@
-# This is an auto-generated Django model module.
-# You'll have to do the following manually to clean this up:
-#     * Rearrange models' order
-#     * Make sure each model has one field with primary_key=True
-# Feel free to rename the models, but don't rename db_table values or field names.
-#
-# Also note: You'll have to insert the output of 'django-admin.py sqlcustom [appname]'
-# into your database.
+# -*- coding: utf-8 -*-
 
+from django.contrib.auth.models import User
+from django.conf import settings
+from django.core.exceptions import ValidationError
+from django.core.urlresolvers import reverse
 from django.db import models
-from datetime import date
-from bitfield import BitField
 
+from datetime import date, datetime
+from hashlib import sha256
 
-class DjangoContentType(models.Model):
-    id = models.IntegerField(primary_key=True)
-    name = models.CharField(max_length=100)
-    app_label = models.CharField(max_length=100)
-    model = models.CharField(max_length=100)
-    class Meta:
-        db_table = u'django_content_type'
+USUARIO_ESTADOS = (
+    (u'A', u'Activo'),
+    (u'I', u'Inactivo'),
+)
+#
+#USUARIO_TIPOS = (
+#    (u'E', u'Estudiante'),
+#    (u'C', u'Coordinador'),
+#)
+#
+## NOTA: cedula, nombres, apellidos, clave y email en user.
+###
+##  Perfil que es creado por un coordinador.
+#class PerfilPendiente(models.Model):
+#    cedula = models.CharField(u'Cédula de identidad', max_length=8,
+#                              unique=True)
+#    correo = models.EmailField(u'Correo electrónico', unique=True)
+#    tipo = models.CharField(choices=USUARIO_TIPOS, max_length=1)
+#    estado = models.CharField(choices=USUARIO_ESTADOS, max_length=1)
+#    verificador = models.CharField(max_length=64, editable=False, unique=True)
+#    fecha_creacion = models.DateField(auto_now=True, editable=False)
+#
+#    def asunto_correo(self):
+#        asunto = u'Sistema de Guardabosques: cuenta de usuario'
+#
+#        return asunto
+#
+#    def mensaje_correo(self, html=False):
+#        mensaje = u'Esta es una invitación para el registro en el sistema '\
+#                  u'de guardabosques de la USB. Si su cédula de identidad '\
+#                  u'es %s por favor ingrese al siguiente enlace: %s. De lo '\
+#                  u'contrario notifique al administrador del sistema acerca '\
+#                  u'del error.'
+#
+#        enlace = "http://%s%s" % (settings.SITE_URL,
+#                                  reverse(u'registro', args=[self.verificador]))
+#
+#        return mensaje % (self.cedula, enlace if not html else
+#                                       u'<a href=%s>%s</a>' % (enlace, enlace))
+#
+#    def save(self, *args, **kwargs):
+#        self.verificador = sha256(u'%s$%s' %
+#                            (self.cedula, datetime.now())).hexdigest()
+#
+#        super(PerfilPendiente, self).save(*args, **kwargs)
 
-class DjangoSession(models.Model):
-    session_key = models.CharField(max_length=40, primary_key=True)
-    session_data = models.TextField()
-    expire_date = models.DateTimeField()
-    class Meta:
-        db_table = u'django_session'
+##
+#  Perfil de un usuario luego de que deja de ser pendiente y agrega sus datos.
+class Perfil(models.Model):
+    usuario = models.OneToOneField(User, related_name=u'perfil')
+    telefono_principal = models.CharField(max_length=11)
+    telefono_opcional = models.CharField(blank=True, max_length=11, null=True)
+    fecha_inicio = models.DateField(auto_now=True, editable=False)
+    zona = models.CharField(max_length=50)
 
-class DjangoSite(models.Model):
-    id = models.IntegerField(primary_key=True)
-    domain = models.CharField(max_length=100)
-    name = models.CharField(max_length=50)
-    class Meta:
-        db_table = u'django_site'
+    def __unicode__(self):
+        return self.usuario.username
 
+##
+#  Perfil que puede hacer labores administrativas en el sistema.
+class Coordinador(Perfil):
+    pass
+
+##
+#  Perfil que corresponde a un estudiante que realiza actividades y las
+#  incorpora a una bitácora.
+class Estudiante(Perfil):
+    carne = models.CharField(max_length=8, unique=True)
+    horas_laboradas = models.PositiveSmallIntegerField(default=0)
+    horas_aprobadas = models.PositiveSmallIntegerField(default=0)
+    estado = models.CharField(choices=USUARIO_ESTADOS, max_length=1)
+    fecha_fin = models.DateField()
+    limitaciones_fisicas = models.TextField(blank=True, null=True)
+    limitaciones_medicas = models.TextField(blank=True, null=True)
+    carrera = models.ForeignKey(u'Carrera')
+
+    def __unicode__(self):
+        return self.cedula
+
+    def save(self, *args, **kwargs):
+        if self.horas_aprobadas > self.horas_laboradas:
+            raise ValidationError(u'El usuario no puede poseer más horas '\
+                                  u'aprobadas que laboradas')
 
 class Carrera(models.Model):
     codigo = models.CharField(max_length=4, primary_key=True)
     nombre = models.CharField(unique=True, max_length=50)
-    class Meta:
-        db_table = u'carrera'
+
     def __unicode__(self):
         return self.nombre
-        
-class Usuario(models.Model):
-    cedula = models.CharField(max_length=8, primary_key=True)
-    carne = models.CharField(unique=True, max_length=8, default = None)
-    clave = models.CharField(max_length=64)
-    nombres = models.CharField(max_length=50)
-    apellidos = models.CharField(max_length=50)
-    correo = models.CharField(unique=True, max_length=50)
-    telefono_principal = models.CharField(max_length=11)
-    telefono_opcional = models.CharField(max_length=11)
-    horas_laboradas = models.SmallIntegerField(default=0)
-    horas_aprobadas = models.SmallIntegerField(default=0)
-    estado = models.CharField(max_length=8)
-    tipo = models.CharField(max_length=11)
-    fecha_inicio = models.DateField(default = date.today())
-    fecha_fin = models.DateField()
-    zona = models.CharField(max_length=50)
-    codigo_carrera = models.ForeignKey(Carrera, db_column='codigo_carrera')
-    limitaciones_fisicas = models.TextField()
-    limitaciones_medicas = models.TextField()
-    class Meta:
-        db_table = u'usuario'
-    
-    def inicializar(self):
-        self.carne = None
-        self.horas_laboradas = 0
-        self.horas_aprobadas = 0
-        self.fecha_inicio = date.today()
 
 class Jornada(models.Model):
     id = models.AutoField(primary_key=True,db_column='identificador')
-    cedula_usuario = models.ForeignKey(Usuario, db_column='cedula_usuario')
+    #cedula_usuario = models.ForeignKey(Usuario, db_column='cedula_usuario')
     fecha = models.CharField(max_length=10,blank=True)
     estado = models.CharField(max_length=9)
     minutos = models.SmallIntegerField()
@@ -89,7 +118,7 @@ class OtroServicio(models.Model):
 class Hizo(models.Model):
     identificador = models.AutoField(primary_key=True, )
     horas = models.SmallIntegerField()
-    cedula_usuario = models.ForeignKey(Usuario, db_column='cedula_usuario')
+    #cedula_usuario = models.ForeignKey(Usuario, db_column='cedula_usuario')
     nombre_otro_servicio = models.ForeignKey(OtroServicio, db_column='nombre_otro_servicio')
     class Meta:
         db_table = u'hizo'
@@ -101,7 +130,7 @@ class Agrupacion(models.Model):
 
 class Pertenece(models.Model):
     identificador = models.IntegerField(primary_key=True)
-    cedula_usuario = models.ForeignKey(Usuario, db_column='cedula_usuario')
+    #cedula_usuario = models.ForeignKey(Usuario, db_column='cedula_usuario')
     nombre_agrupacion = models.ForeignKey(Agrupacion, db_column='nombre_agrupacion')
     class Meta:
         db_table = u'pertenece'

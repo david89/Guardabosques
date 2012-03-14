@@ -6,7 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 
 # Modelos
-from database.models import Jornada, Actividad, ConstituidaPor, Usuario
+from database.models import Jornada, Actividad, ConstituidaPor#Usuario
 
 # Formularios
 from formularios.formularios import EstRegistrarJornadaForm

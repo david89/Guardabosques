@@ -12,44 +12,23 @@ admin.autodiscover()
 # from django.contrib import admin
 # admin.autodiscover()
 from django.views.generic import list_detail, create_update
-from Guardabosques.database.models import Usuario
+from Guardabosques.usuario.models import PerfilPendiente
 
 # Formularios
-from formularios.formularios import AdminRegistrarUsuarioForm
+from Guardabosques.usuario.forms import CrearPerfilPendiente
 usuario_create = {
-'form_class' : AdminRegistrarUsuarioForm,
-'template_name' : 'administrador/usuarios/registrar_usuario.html',
-'post_save_redirect' : 'administrador/usuarios/registrar_usuario_exito.html',
-'login_required' : True,
+    'form_class': CrearPerfilPendiente,
+    'template_name': 'administrador/usuarios/registrar_usuario.html',
+    'post_save_redirect': 'administrador/usuarios/registrar_usuario_exito.html',
+    'login_required': True,
 }
 
 urlpatterns = patterns('',
     (r'^admin/', include(admin.site.urls)),
-    (r'^hello/$', hello),
-    (r'^time/$', current_date),
     (r'^accounts/login/$', login),
     (r'^accounts/logout/$', logout),
-    ## principal
-    (r'^principal/$', principal),
-    ## Seccion del administrador
-
-#    (r'^administrador/$', administrador_base),
-    
-    ## Gestionar Usuario  
-#    (r'^administrador/gestionar_usuario/$', administrador_gestionar_usuario),
-#    (r'^administrador/consultar_usuario/$', administrador_consultar_usuario),
-#    (r'^administrador/registrar_usuario/$', administrador_registrar_usuario),
-#    (r'^administrador/registrar_usuario_exito/$', administrador_registrar_usuario_exito),
-    
-    # Examples:
-    # url(r'^$', 'pepe.views.home', name='home'),
-    # url(r'^pepe/', include('pepe.foo.urls')),
-
-    # Uncomment the admin/doc line below to enable admin documentation:
-    # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
-
-    # Uncomment the next line to enable the admin:
-    # url(r'^admin/', include(admin.site.urls)),
+    (r'^$', principal),
+    (r'^usuario/$', include(u'Guardabosques.usuario.urls')),
 )
 
 #from Guardabosques.administrador import urls
