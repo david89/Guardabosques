@@ -1,0 +1,20 @@
+{% extends "administrador/administrador_base.html"%}
+
+{% block contenido_center %}
+    <div class="contenido_titulo">
+        <h2>Agregar nuevos usuarios</h2>
+    </div>
+    <center>
+        <p style="color: green;">El usuario se ha agregado exitosamente</p> 
+        <table>
+            <tr>
+                {% url Guardabosques.usuario.views.crear_usuario as enlace %}
+
+                <td id="boton"><a id="admin_usuarios" href="{{ enlace }}">
+                    &nbsp;&nbsp;Volver</a>
+                </td>
+            </tr>
+        </table>
+    </center>
+{% endblock %}
+

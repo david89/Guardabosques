@@ -1,0 +1,63 @@
+{% extends "administrador/administrador_base.html"%}
+<!-- Lol -->
+{%block contenido_center%}
+<!-- Lol -->
+<script type="text/javascript">
+	$(document).ready(
+			function() {
+				$('#id_nombre').addClass('ui-widget ui-corner-all').attr(
+						'readonly', true);
+				$('#id_descripcion').addClass('ui-widget ui-corner-all');
+			});
+
+	$(document).ready(function() {
+		$(".form").validate({
+			messages : {
+				nombre : {
+					required : 'Por favor ingrese el nombre de la actividad',
+				}
+			}
+		});
+	});
+</script>
+<style type="text/css">
+</style>
+<div class="contenido_titulo">
+  <h2>Modificar Actividad</h2>
+</div>
+
+<center>
+  <div class="ui-widget-content ui-corner-all"
+    style="width: 700px; padding: 10px;">
+    {% if form.errors %}
+    <p style="color: red;">Por favor corrija los siguientes errores</p>
+    {% endif %}
+    <form class="form"
+      action="/administrador/actividad/modificar_actividad/"
+      method="POST">
+      <table>{{ form.as_table }}
+      </table>
+      <input
+        class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+        type="submit" value="Guardar Cambios">
+    </form>
+    <div id="leyenda" style="width: 500px;">
+      <h3>
+        Leyenda de Objetivos
+        <h3>
+          <ul id="leyendalist" style="list-style-type: none;">
+            <li id="lobj1" class="ui-state-default">obj 1: Educación y
+              sensibilización a visitantes y vecinos de la USB</li>
+            <li id="lobj2" class="ui-state-default">obj 2: Manejo y
+              restauración ambiental</li>
+            <li id="lobj3" class="ui-state-default">obj 3: Protección
+              ambiental y de los visitantes</li>
+            <li id="lobj4" class="ui-state-default">obj 4: Seguimiento
+              e información ambiental</li>
+            <li id="lobj5" class="ui-state-default">obj 5:
+              Institucionalización y promoción del programa</li>
+          </ul>
+    </div>
+  </div>
+</center>
+{%endblock%}

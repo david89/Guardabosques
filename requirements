@@ -1,0 +1,9 @@
+Django==1.3
+South==0.7.3
+ipdb==0.3
+ipython==0.10
+psycopg2==2.4
+pygraphviz==1.1
+-e git+https://github.com/bitly/pyqrencode.git@1cfb23cb60ebdebeac1bd8ac50f3db17e6892aca#egg=pyqrencode-dev
+python-dateutil==1.5
+python-memcached==1.47
