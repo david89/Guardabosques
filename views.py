@@ -1,24 +1,29 @@
-from django.http import Http404,HttpResponse, HttpResponseRedirect
-from django.template.loader import get_template
-from django.template import Context
-from django.shortcuts import render_to_response
-from django.views.decorators.csrf import csrf_exempt
+# -*- coding: utf-8 -*-
 
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import render_to_response
+from django.template import RequestContext
 
+#from django.http import Http404,HttpResponse, HttpResponseRedirect
+#from django.template.loader import get_template
+#from django.template import Context
+#from django.views.decorators.csrf import csrf_exempt
+#
+#
+#
+#import datetime
 
-import datetime
-
-## Vista que redirecciona a la vista de admin o de usuario segun sea el caso
+##
+#  Vista que redirecciona a la vista de administrador o de usuario según sea
+#  el caso.
 @login_required
-def principal(request):
+def inicio(request):
     if request.user.is_staff:
-        return HttpResponseRedirect("/administrador/")
-    else:
-        return HttpResponseRedirect("/estudiante/")
+        return render_to_response("inicio_coordinador.html",
+                                  {},
+                                  context_instance=RequestContext(request))
 
-## Vistas de la seccion de administrador
-@login_required
-def estudiante_base(request):
-    return render_to_response("estudiante/estudiante_base.html")
+    return render_to_response(u'inicio_usuario.html',
+                              {},
+                              context_instance=RequestContext(request))
 

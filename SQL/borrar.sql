@@ -1,9 +1,0 @@
-DROP TABLE hizo;
-DROP TABLE pertenece;
-DROP TABLE constituida_por;
-DROP TABLE otro_servicio;
-DROP TABLE actividad;
-DROP TABLE jornada;
-DROP TABLE usuario;
-DROP TABLE carrera;
-DROP TABLE agrupacion;

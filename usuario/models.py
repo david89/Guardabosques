@@ -50,11 +50,13 @@ class PerfilPendiente(models.Model):
                   u'del error.'
 
         enlace = "http://%s%s" % (settings.SITE_URL,
-                                  reverse(u'registro',
+                                  reverse(u'registrar_usuario',
                                           args=[self.verificador]))
 
-        return mensaje % (self.cedula, enlace if not html else
-                                       u'<a href=%s>%s</a>' % (enlace, enlace))
+        return mensaje % (self.cedula if not html else
+                            u'<strong>%s</strong>' % (self.cedula),
+                          enlace if not html else
+                            u'<a href=%s>%s</a>' % (enlace, enlace))
 
     ##
     #  Operación guardar de la clase. El verificador se compone de la cédula
