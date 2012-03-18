@@ -1,0 +1,100 @@
+{% extends "administrador/administrador_base.html"%}
+<!-- lol -->
+{%block contenido_center%}
+<!-- lol -->
+<script>
+	/*	$(document).ready(function(){
+	 $('#modificar #eliminar').click(function(){
+	 $('#gestionar').toogle('fold');
+	
+	 });
+	 });
+	 */
+	$(document).ready(function() {
+		$("#jqgrid").setGridParam({
+			colModel : [ {
+				sorttype : 'int'
+			} ]
+		}).trigger("reloadGrid");
+	});
+	$(document).ready(function(){
+		$('#jqgrid_obj1').hover(function(){
+			$('#lobj1').toggleClass('ui-state-hover');
+		});
+		$('#jqgrid_obj2').hover(function(){
+            $('#lobj2').toggleClass('ui-state-hover');
+        });
+		$('#jqgrid_obj3').hover(function(){
+            $('#lobj3').toggleClass('ui-state-hover');
+        });
+		$('#jqgrid_obj4').hover(function(){
+            $('#lobj4').toggleClass('ui-state-hover');
+        });
+		$('#jqgrid_obj5').hover(function(){
+            $('#lobj5').toggleClass('ui-state-hover');
+        });
+	});
+</script>
+<div id="gestionar">
+  <div class="contenido_titulo">
+    <h2>Consultar Actividades</h2>
+  </div>
+  <center>
+    {% if actividad_list %}
+    <table id="jqgrid">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Descripción</th>
+          <th id="obj1">Objetivo A</th>
+          <th id="obj2">Objetivo B</th>
+          <th id="obj3">Objetivo C</th>
+          <th id="obj4">Objetivo D</th>
+          <th id="obj5">Objetivo E</th>
+          <th>Modificar</th>
+          <th>Eliminar</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for actividad in actividad_list %}
+        <tr>
+          <td>{{ actividad.nombre }}</td>
+          <td>{{ actividad.descripcion }}</td>
+          <td>{{ actividad.obj1 }}</td>
+          <td>{{ actividad.obj2 }}</td>
+          <td>{{ actividad.obj3 }}</td>
+          <td>{{ actividad.obj4 }}</td>
+          <td>{{ actividad.obj5 }}</td>
+          <td><a
+            href="/administrador/actividad/modificar_actividad/{{ actividad.nombre }}/"><img
+              class="modificar"
+              src="{{STATIC_PREFIX}}images/editable.png" alt="modificar"
+              height="20" width="20" /></a></td>
+          <td><a
+            href="/administrador/actividad/eliminar_actividad/{{ actividad.nombre }}/"><img
+              class="modificar" src="{{STATIC_PREFIX}}images/delete.png"
+              alt="modificar" height="20" width="20" /></a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <div id="pager"></div>
+    {% else %}
+    <p>No hay actividades registradas en el sistema.</p>
+    {% endif %}
+    <div id="leyenda" style="width:500px;">
+        <h3>Leyenda de Objetivos<h3>
+      <ul id="leyendalist" style="list-style-type: none;">
+        <li id="lobj1" class="ui-state-default">A: Educación y sensibilización a visitantes y vecinos de la USB</li>
+        <li id="lobj2" class="ui-state-default" >B: Manejo y restauración ambiental</li>
+        <li id="lobj3" class="ui-state-default" >C: Protección ambiental y de los visitantes</li>
+        <li id="lobj4" class="ui-state-default" >D: Seguimiento e información ambiental</li>
+        <li id="lobj5" class="ui-state-default" >E: Institucionalización y promoción del programa</li>
+      </ul>
+    </div>
+<br>
+<br>
+<br>
+  </center>
+</div>
+{%endblock%}

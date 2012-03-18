@@ -1,0 +1,46 @@
+<script>
+    $(document).ready(function() {
+        $('#admin_usuarios').click(function() {
+            $('#contenido_center').load('/administrador/usuarios/');
+        });
+    });
+    $(document).ready(function() {
+        $('#admin_actividades').click(function() {
+            $('#contenido_center').load('/administrador/actividad/');
+        });
+    });
+</script>
+<table>
+  <tr>
+    <td id="boton"><a id="admin_inicio" href="/administrador/">
+        &nbsp;&nbsp;Inicio </a></td>
+  </tr>
+  <tr>
+    <td id="boton"><a id="admin_busquedas" href="#">
+        &nbsp;&nbsp;Bùsquedas </a></td>
+  </tr>
+  <tr>
+    <td id="boton"><a id="admin_usuarios" href="#">
+        Gestionar Usuarios</a></td>
+  </tr>
+
+  <tr>
+    <td id="boton"><a id="admin_actividades" href="#">
+        &nbsp;&nbsp;Actividades </a></td>
+  </tr>
+  <tr>
+    <td id="boton"><a id="admin_asistencias" href="#">
+        &nbsp;&nbsp;Asistencias </a></td>
+  </tr>
+  <tr>
+  <tr>
+    <td id="boton"><a id="admin_notificaciones" href="#">
+        &nbsp;&nbsp;Notificaciones </a></td>
+  </tr>
+  <tr>
+    <td id="boton"><a href="acciones/cerrar_sesion.php">
+        &nbsp;&nbsp;Cerrar Sesión </a></td>
+  </tr>
+
+
+</table>

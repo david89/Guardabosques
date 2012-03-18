@@ -1,0 +1,42 @@
+{% extends "inicio_coordinador.html" %}
+
+{% block contenido_centro %}
+    <div class="contenido_titulo">
+        <h2>Gestionar Usuarios</h2>
+    </div>
+    <center>
+        <table>
+            <tr>
+                <td id="boton">
+                    {% url agregar_usuario as enlace %}
+
+                    <a id="agregar_usuario"
+                        href="{{ enlace }}">
+                        &nbsp;&nbsp;Agregar usuario
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td id="boton">
+                    {% url consultar_usuarios as enlace %}
+
+                    <a id="consultar_usuarios"
+                        href="{{ enlace }}">
+                        &nbsp;&nbsp;Consultar usuarios
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td id="boton">
+                    {% url consultar_pendientes as enlace %}
+
+                    <a id="consultar_pendientes"
+                        href="{{ enlace }}">
+                        &nbsp;&nbsp;Usuarios pendientes
+                    </a>
+                </td>
+            </tr>
+        </table>
+    </center>
+{% endblock %}
+

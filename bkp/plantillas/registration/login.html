@@ -1,0 +1,59 @@
+<!-- Se incluye el template base del html -->
+{% extends "base_template.html"%}
+<!-- Lol -->
+{% block content%}
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#username').addClass('required');
+		$('#password').addClass('required');
+	});
+
+	$(document).ready(function() {
+		$(".form").validate({
+			messages : {
+				username : {
+					required : 'Por favor ingrese su cédula',
+				},
+				password : {
+					required : 'Por favor ingrese su contraseña',
+				}
+			},
+			submitHandler : true
+		});
+	});
+</script>
+
+<div id="contenido_login">
+  <div id="login">
+    <form class="form" action="" method="post" id="form_login">
+      {% csrf_token %}
+      <table id="login_table">
+        <tr>
+          <td>Usuario:</td>
+          <td><input type="text" name="username" id="username" /></td>
+        </tr>
+        <tr>
+          <td>Clave:</td>
+
+          <td><input type="password" name="password" id="password" />
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td><input type="image"
+            src="{{STATIC_PREFIX}}images/entrar.png" id="submit"
+            width=60px height=40px></td>
+        </tr>
+      </table>
+      <input type="hidden" name="next" value="/principal/" />
+    </form>
+    <a href="javascript:popup()">¿Olvidó su contraseña?</a> 
+    {% if form.errors %}
+    <p class="error">Usuario o Contraseña Inválidos</p>
+    {% endif %} </span>
+  </div>
+</div>
+
+{% endblock%}
+
+<!-- Javascript -->

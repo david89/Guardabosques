@@ -1,0 +1,21 @@
+{% extends "administrador/administrador_base.html"%}
+
+{%block contenido_center%}
+  <div class="contenido_titulo">
+    <h2>Agregar nuevos usuarios</h2>
+  </div>
+  <center>
+    {% if formulario.errors %}
+    <p style="color: red;">Por favor corrija los siguientes errores</p>
+    {% endif %}
+  
+    <form action="" method="POST">
+      <table>
+        {{ formulario.as_table }}
+      </table>
+      <input type="submit" value="AgregarUsuario">
+  
+  
+    </form>
+  </center>
+{%endblock%}

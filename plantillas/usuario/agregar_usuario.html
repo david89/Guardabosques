@@ -1,5 +1,5 @@
-{% extends "administrador/administrador_base.html" %}
-{% block contenido_center %}
+{% extends "inicio_coordinador.html" %}
+{% block contenido_centro %}
 <script type="text/javascript">
 	$(document).ready(function() {
 		$('#id_cedula').addClass('ui-widget ui-corner-all required number');
@@ -9,7 +9,7 @@
 	});
 
 	$(document).ready(function() {
-		$(".formulario").validate({
+		$(".form").validate({
 			messages: {
 				correo: {
 					required: 'Por favor ingrese el correo',
@@ -18,6 +18,9 @@
 				cedula: {
 					required: 'Por favor ingrese la cédula',
 					number: 'Por favor ingrese sólo digitos para la cédula'
+				},
+				estado: {
+					required: 'Por favor ingrese el estado del usuario'
 				},
 				tipo: {
 					required: 'Por favor ingrese el tipo del usuario'
@@ -41,8 +44,8 @@
                 <ul class="errorlist"><li>{{ error }}</li></ul>
             {% endif %}
         {% endif %}
-        <form class="form"
-            action="/administrador/usuarios/crear_usuario/" method="POST">
+        {% url agregar_usuario as enlace %}
+        <form class="form" action="{{ enlace }}" method="POST">
             {% csrf_token %}
             <table>
                 {{ formulario.as_table }}

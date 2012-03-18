@@ -1,0 +1,57 @@
+{% extends "administrador/administrador_base.html"%}
+{% block contenido_center %}
+<script>
+	$(document).ready(function() {
+		$("#jqgrid").setGridParam({
+			colModel : [ {
+				sorttype : 'int'
+			} ]
+		}).trigger("reloadGrid");
+	});
+</script>
+<div id="gestionar">
+    <div class="contenido_titulo">
+        <h2>Consultar usuarios</h2>
+    </div>
+    <center>
+        {% if usuarios %}
+            <table id="jqgrid">
+                <thead>
+                    <tr>
+                        <th>Cédula</th>
+                        <th>Correo Electrónico</th>
+                        <th>Tipo</th>
+                        <th>Estado</th>
+                        <th>Modificar</th>
+                        <th>Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for usuario in usuarios %}
+                        <tr>
+                            <td>{{ usuario.cedula }}</td>
+                            <td>{{ usuario.correo }}</td>
+                            <td>{{ usuario.get_tipo_display }}</td>
+                            <td>{{ usuario.get_estado_display }}</td>
+                            {% url administrador.usuarios.views.modificar_usuario usuario.cedula as enlace %}
+                            <td><a href="{{ enlace }}"><img
+                            class="modificar"
+                            src="{{ STATIC_PREFIX }}images/editable.png" alt="modificar"
+                            height="20" width="20"/></a></td>
+                            {% url administrador.usuarios.views.eliminar_usuario usuario.cedula as enlace %}
+                            <td><a href="{{ enlace }}"><img
+                            class="modificar" src="{{ STATIC_PREFIX }}images/delete.png"
+                            alt="modificar" height="20" width="20"/></a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div id="pager"></div>
+        {% else %} <br>
+            <p>No hay usuarios registrados en el sistema.</p>
+            <br>
+        {% endif %}
+    </center>
+</div>
+{% endblock %}
+

@@ -1,0 +1,34 @@
+<table>
+    <tr>
+        {% url inicio as enlace %}
+        <td id="boton"><a id="inicio" href="{{ enlace }}">
+            &nbsp;&nbsp;Inicio </a></td>
+    </tr>
+    <tr>
+        {% url gestionar_usuarios as enlace %}
+        <td id="boton"><a id="gestionar_usuarios" href="{{ enlace }}">
+            Gestionar Usuarios</a></td>
+    </tr>
+    <tr>
+        <td id="boton"><a id="buscar" href="#">
+            &nbsp;&nbsp;Búsquedas </a></td>
+    </tr>
+    <tr>
+        <td id="boton"><a id="actividades" href="#">
+            &nbsp;&nbsp;Actividades </a></td>
+    </tr>
+    <tr>
+        <td id="boton"><a id="asistencias" href="#">
+            &nbsp;&nbsp;Asistencias </a></td>
+    </tr>
+    <tr>
+        <td id="boton"><a id="notificaciones" href="#">
+            &nbsp;&nbsp;Notificaciones </a></td>
+    </tr>
+    <tr>
+        {% url finalizar_sesion as enlace %}
+        <td id="boton"><a href="{{ enlace }}">
+            &nbsp;&nbsp;Cerrar Sesión </a></td>
+    </tr>
+</table>
+

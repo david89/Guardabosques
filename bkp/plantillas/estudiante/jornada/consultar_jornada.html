@@ -1,0 +1,56 @@
+{% extends "estudiante/estudiante_base.html"%}
+<!-- lol -->
+{%block contenido_center%}
+<!-- lol -->
+<script>
+	/*	$(document).ready(function(){
+	 $('#modificar #eliminar').click(function(){
+	 $('#gestionar').toogle('fold');
+	
+	 });
+	 });
+	 */
+	$(document).ready(function() {
+		$("#jqgrid").setGridParam({
+			colModel : [ {
+				sorttype : 'int'
+			} ]
+		}).trigger("reloadGrid");
+	});
+</script>
+<div id="gestionar">
+  <div class="contenido_titulo">
+    <h2>Bit&aacute;cora</h2>
+  </div>
+  <center>
+    {% if jornada_list %}
+    <table id="jqgrid">
+      <thead>
+        <tr>
+          <th>Fecha de Realización</th>
+          <th>Minutos</th>
+          <th>Multiplicador</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for jornada in jornada_list %}
+        <tr>
+          <td>{{ jornada.fecha }}</td>
+          <td>{{ jornada.minutos }}</td>
+          <td>{{ jornada.multiplicador }}</td>
+          <td>{{ jornada.estado }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <div id="pager"></div>
+    {% else %}
+    <p>No hay jornadaes registradas en el sistema.</p>
+    {% endif %}
+<br>
+<br>
+<br>
+  </center>
+</div>
+{%endblock%}

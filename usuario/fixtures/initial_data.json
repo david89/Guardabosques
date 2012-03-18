@@ -1,0 +1,20 @@
+[
+    {
+        "pk": 1, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "david", 
+            "first_name": "", 
+            "last_name": "", 
+            "is_active": true, 
+            "is_superuser": true, 
+            "is_staff": true, 
+            "last_login": "2012-03-17 17:27:09", 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "sha1$bcc25$2426d7053ef77df04a1dc066abf0d4ecb7dd81de", 
+            "email": "david@david.com", 
+            "date_joined": "2012-03-17 17:27:09"
+        }
+    }
+]

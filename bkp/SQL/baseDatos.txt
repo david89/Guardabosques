@@ -1,0 +1,280 @@
+Estas son las clases que está implementadas actualmente en el sistema de
+guardabosques. A continuación se lista información acerca de las mismas para
+extraer algunos requerimientos de usuario.
+
+actividad: actividades que realizar un guardabosque. Por ejemplo cernir.
+- key_actividad: identificador.
+- nombre: nombre de la actividad (debería ser única).
+- objetivos: objetivos con los que cumple la actividad.
+
+Notas:
+- Si el nombre es único, no debería estar el atributo key_actividad.
+- objetivos es un arreglo binario con 5 elementos. ¿Manejarlo como
+interrelaciones entre actividades y objetivos?
+
+agrupacion: agrupaciones a las cuales pertenece un usuario.
+- key_usuario: usuario al cual está ligado la agrupación.
+- descripcion: descripción de la agrupación.
+
+Notas:
+- Las agrupaciones están separadas del usuario cuando deberían estar unidas a
+él. A menos que sea importante saber cuáles usuarios son parte de una
+agrupación. En tal caso la solución es colocar una asociación entre agrupación
+y usuario.
+
+carrera: carreras de la Universidad Simón Bolívar.
+- codigo: código de la carrera.
+- nombre: nombre de la carrera.
+
+descripcion: descripción de la actividad realizada por un usuario.
+- key_realiza: identificador.
+- descrip: descripción.
+
+Notas:
+- La descripción está separada de las actividades que realiza un usuario,
+debería unirse. Además cambiar su nombre a descripcion.
+
+jornada: actividad realizada por un usuario en cierto momento.
+- key_jornada: identificador.
+- key_usuario: identificador del usuario que realiza la jornada.
+- fecha: fecha en la cual se realizó la jornada.
+- objetivos: objetivos de la jornada.
+- estado: estado de la jornada.
+- horas: horas destinadas a la jornada.
+
+Notas:
+- ¿Para qué sirven los objetivos de la jornada si los que se consideran son los
+de la actividad que fue realizada? ¿Qué hacen acá objetivos?
+- ¿Cuáles son los estados de la jornada? ¿Pendiente, rechazada y aprobada?
+- realiza es una tabla con una referencia a esta tabla de jornadas, y realiza
+contiene la hora de comienzo y cierre de una jornada. Si trabajo desde 00:00 a
+00:15 me pone 0 horas.
+
+otro_servicio: servicios comunitarios adicionales realizados por el usuario.
+- key_usuario: identificador del usuario que realizó el servicio.
+- nombre: nombre de los otros servicios comunitarios.
+- horas_realizadas: horas realizadas durante los otros servicios.
+
+Notas:
+- ¿Por qué no está del lado del usuario, ya que es un campo de texto sencillo?
+
+Notas:
+- Esto está conectado a usuario, pero no se donde se llena.
+- ¿Por qué horas_realizadas son un double?
+
+realiza: indica que un usuario realiza una actividad o participa en una jornada.
+- key_realiza: identificador.
+- key_jornada: identificador de la jornada que realizó el usuario.
+- key_actividad: identificador de la actividad que realizó el usuario.
+- hora_inicio: hora en la que inició la jornada.
+- hora_fin: hora en la que finalizó la jornada.
+
+Notas:
+- Mejorar el diseño: redistribuir cosas de jornadas, actividades, etc.
+
+usuario: usuario del sistema.
+- key_usuario: identificador.
+- login: nombre de usuario.
+- clave: contraseña.
+- nombres: nombres del usuario.
+- apellidos: apellidos del usuario.
+- email: correo electrónico del usuario.
+- telefono1: número de teléfono del usuario.
+- telefono2: segundo número de teléfono del usuario.
+- horas_laboradas: horas que el usuario ha trabajado.
+- horas_aprobadas: horas que se le han aprobado al usuario.
+- estado: estado del usuario.
+- tipo: tipo del usuario.
+- fecha_inicio: fecha en la que el usuario se unió al sistema de guardabosque.
+- fecha_fin: fecha en la que el usuario culminó el servicio comunitario.
+- foto: archivo donde se encuentra la foto del usuario.
+- carrera_codigo: código de la carrera a la cual pertenece el usuario.
+- carnet: carné del usuario.
+- cedula: cédula del usuario.
+- zona: zona donde vive el usuario.
+
+Notas:
+- Quitar login y key_usuario y usar cédula o carné como identificadores.
+- ¿Qué estados hay?
+- ¿Qué tipos hay?
+
+usuario_limitacion: limitaciones del usuario.
+- key_limitacion: identificador.
+- key_usuario: identificador del usuario con las limitaciones.
+- descripcion: descripción de la limitación del usuario.
+- tipo: tipo de limitación.
+
+Notas:
+- ¿Por qué no está del lado del usuario, ya que hay una sola física y una sola
+médica?
+- ¿Qué tipos de limitaciones hay?
+
+Con la información previa se puede obtener un universo de discurso en donde se
+encuentren los siguientes aspectos generales:
+- Los usuarios pueden ser estudiantes o coordinadores del sistema.
+- Hay usuarios que están asociados a una carrera de la Universidad Simón
+Bolívar.
+- Los usuarios estudiantes pueden hacer las operaciones mencionadas en el
+archivo CasosUsoEstudiante.pdf del sistema, y los coordinadores las operaciones
+del archivo CasosUsoCoordinador.pdf. Falta ver lo siguiente ¿un usuario puede
+ser estudiante y coordinador al mismo tiempo? ¿Los coordinadores del sistema se
+consideran los mismos del servicio comunitario que supervisan la labor de otros
+estudiantes?
+- Los usuarios participan en jornadas, donde una jornada se define como el
+conjunto de actividades que realizó un usuario en un día de servicio
+comunitario. Cada actividad posee un nombre que la identifique y el conjunto de
+objetivos del servicio comunitario, relacionados con la misma.
+- Cada usuario al añadir una jornada, lista todas las actividades que realizó
+en el día, el intervalo del día en el cual participó en dicha actividad y la
+descripción de la actividad realizada.
+- Los usuarios pueden realizar otros servicios dentro del servicio comunitario
+(no queda muy claro que es esto).
+- Los usuarios pueden pertenecer a agrupaciones estudiantiles, por ejemplo, BWL.
+- Los usuarios pueden tener limitaciones físicas o médicas.
+- Hablar de las operaciones que pueden realizar ambos tipos de usuario.
+
+A continuación se muestran las clases a ser usadas en el modelo conceptual (OR)
+de la base de datos. El formato usado fue (abcd), donde a indica si el atributo
+es simple (S) o compuesto (C), la b indica si el atributo tiene un solo valor
+(S) o si es multivaluado (M), la c indica si el atributo es primario (P) o
+derivado (D) y la d indica si el atributo es fijo (F), es decir, posee un valor
+distinto de nulo, u opcional (O), si tiene al nulo como un valor válido.
+Además, algunos atributos tendrán los caracteres CP si son parte de la clave
+primaria o CA si son parte de alguna clave alterna.
+
+Actividad: actividad que puede realizar un guardabosque para cumplir con sus
+horas de servicio comunitario. A continuación se muestran los atributos de esta
+clase:
+
+- nombre: nombre de la actividad (SSPF) (CP).
+- descripción: descripción de la actividad (SSPF).
+
+Agrupación: agrupación a la cual puede pertenecer un usuario. A continuación se
+muestran los atributos de esta clase:
+
+- nombre: nombre de la agrupación (SSPF) (CP).
+
+Carrera: carrera a la cual está asociado un usuario del sistema. A continuación
+se muestran los atributos de esta clase:
+
+- codigo: código de la carrera (SSPF) (CP).
+- nombre: nombre de la carrera (SSPF) (CA).
+
+Jornada: actividades que realiza un guardabosque durante un día. A continuación
+se muestran los atributos de esta clase:
+
+- fecha: fecha de la jornada (SSPF).
+- estado: estado de la jornada (SSPF). Puede ser pendiente, aprobada,
+rechazada, etc (ver cuáles más).
+- minutos: minutos que el usuario destinó a la jornada (SSDF). Se deriva de las
+intervalos en los que el usuario realizó las actividades que componen la
+jornada.
+- multiplicador: multiplicador de las horas de jornada (SSPO).
+
+Restricciones:
+2) La fecha de la jornada debe ser menor a la actual.
+1) Los minutos de la jornada deben estar en el rango (0, 24 * 60].
+3) El multiplicador debe estar en el rango [1, 120].
+
+Objetivo: objetivos que deben cumplir las actividades de una jornada de
+guardabosques. A continuación se muestran los atributos de esta clase:
+- nombre: título descriptivo del objetivo (SSPF) (CP).
+
+Otro servicio: otros servicios comunitarios que haya realizado un usuario. A
+continuación se muestran los atributos de esta clase:
+
+- nombre: nombre del otro servicio comunitario que haya realizado el usuario.
+
+Usuario: usuario del sistema que puede ser del tipo estudiante o coordinador.
+Los estudiantes son guardabosques que están realizando el servicio comunitario y
+pueden añadir jornadas, revisar su bitácora, subir su informe, etc. Mientras que
+los coordinadores son usuarios del sistema que se encargan de añadir nuevas
+actividades y revisar las jornadas realizadas por los usuarios. A continuación
+se muestran los atributos de esta clase:
+
+- cedula: cédula de identidad que identifica al usuario (SSPF) (CP).
+- carne: carné que identifica al usuario (SSPF) (CA).
+- clave: contraseña del usuario en el sistema (SSPF).
+- nombres: nombres del usuario (SSPF).
+- apellidos: apellidos del usuario (SSPF).
+- correo: correo electrónico del usuario (SSPF) (CA).
+- telefono_principal: número de teléfono del usuario (SSPF).
+- telefono_adicional: segundo número de teléfono del usuario (SSPO).
+- horas_laboradas: horas que el usuario ha trabajado (SSDO). Se deriva de todas
+las jornadas que ha reportado el usuario.
+- horas_aprobadas: horas que se le han aprobado al usuario (SSDO). Se deriva de
+todas las jornadas que ha reportado el usuario y que han sido aprobadas.
+- estado: estado del usuario (SSPF). Puede ser activo, inactivo, etc (ver
+cuáles más).
+- tipo: tipo del usuario (SSPF). Puede ser estudiante, coordinador, etc (ver
+cuáles más)
+- fecha_inicio: fecha en la que el usuario se unió al sistema de guardabosque
+(SSPF).
+- fecha_fin: fecha en la que el usuario culminó el servicio comunitario (SSPO).
+- foto: archivo donde se encuentra la foto del usuario (SSPF).
+- zona: zona donde vive el usuario (SSPF).
+- limitaciones_fisicas: limitaciones físicas que posee el usuario (SSPO).
+- limitaciones_medicas: limitaciones médicas que posee el usuario (SSPO).
+
+Restricciones:
+1) Si la fecha fin es diferente de NULL, la fecha fin debe se mayor o igual a
+la fecha de inicio (no sé si incluir que debe se mayor por 90 días dado que uno
+puede hacer varios servicios comunitarios).
+2) La fecha de inicio debe ser menor o igual a la fecha actual. Igualmente la
+fecha fin si es diferente de NULL.
+3) Los usuarios estudiantes deben poseer horas laboradas y aprobadas diferentes
+de NULL.
+4) Los usuarios coordinadores no deben tener limitaciones físicas o médicas.
+5) La cantidad de horas aprobadas debe ser menor o igual a la cantidad de horas
+laboradas, y ambas cantidades deben ser mayor o igual a 0.
+
+Asociaciones:
+constituida_por: actividades que constituyen una jornada de trabajo de
+guardabosques. Asociación entre Jornada y Actividad con cardinalidades: 0:n y
+0:n. Posee los siguientes atributos:
+
+- fecha_inicio: hora en la que el guardabosques comenzó a realizar la actividad
+de la jornada (SSPF).
+- fecha_fin: hora en la que el guardabosques terminó la actividad de la jornada
+(SSPF).
+- descripcion: detalles adicionales de la actividad realizada durante la
+jornada (SSPO).
+
+Restricciones:
+1) La fecha de inicio debe ser menor o igual a la fecha fin.
+2) La fecha de la jornada en conjunto con la fecha de inicio y fecha fin, debe
+ser menor o igual que la fecha actual.
+
+cumple_con: indica que una actividad cumple con cierto objetivo.
+
+Restricciones:
+1) La actividad debe cumplir con al menos un objetivo.
+
+estudia: indica que un guardabosque está inscrito en una carrera de la USB.
+Asociación entre Carrera y Usuario con cardinalidades: 0:n y 1:1.
+
+Restricciones:
+1) Solamente usuarios que son estudiantes deben tener una asociación entre
+carrera y usuario.
+
+hizo: indica que un guardabosque realizó otro servicio comunitario. Asociación
+entre Otro y Usuario con cardinalidades: 1:n y 0:n. Posee los siguientes
+atributos:
+
+- horas: horas que el usuario dedicó al otro servicio comunitario.
+
+Restricciones:
+1) Solamente usuarios estudiantes deben poseer otros servicios comunitarios.
+2) La cantidad de horas debe ser mayor a 0.
+
+pertenece: indica que un usuario pertenece a una determinada agrupación.
+Asociación entre Agrupación y Usuario con cardinalidades: 1:n y 0:n.
+
+Restricciones:
+1) Usuarios no estudiantes no deben estar asociados con agrupaciones.
+
+realiza: indica que un guardabosque realizó una jornada. Asociación entre
+Usuario y Jornada con cardinalidades: 0:n y 1:1.
+
+Restricciones:
+1) Solamente usuarios que son estudiantes activos pueden añadir jornadas.

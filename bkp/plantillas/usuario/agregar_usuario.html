@@ -1,0 +1,57 @@
+{% extends "administrador/administrador_base.html" %}
+{% block contenido_center %}
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#id_cedula').addClass('ui-widget ui-corner-all required number');
+		$('#id_correo').addClass('ui-widget ui-corner-all required email');
+		$('#id_tipo').addClass('ui-widget ui-corner-all required');
+		$('#id_estado').addClass('ui-widget ui-corner-all required');
+	});
+
+	$(document).ready(function() {
+		$(".formulario").validate({
+			messages: {
+				correo: {
+					required: 'Por favor ingrese el correo',
+					email: 'Por favor ingrese un correo válido'
+				},
+				cedula: {
+					required: 'Por favor ingrese la cédula',
+					number: 'Por favor ingrese sólo digitos para la cédula'
+				},
+				tipo: {
+					required: 'Por favor ingrese el tipo del usuario'
+				},
+			}
+		});
+	});
+</script>
+<style type="text/css">
+</style>
+<div class="contenido_titulo">
+    <h2>Registrar Usuario</h2>
+</div>
+
+<center>
+    <div class="ui-widget-content ui-corner-all"
+        style="width: 700px; padding: 10px;">
+        {% if formulario.errors or error %}
+            <p style="color: red;">Por favor corrija los siguientes errores</p>
+            {% if error %}
+                <ul class="errorlist"><li>{{ error }}</li></ul>
+            {% endif %}
+        {% endif %}
+        <form class="form"
+            action="/administrador/usuarios/crear_usuario/" method="POST">
+            {% csrf_token %}
+            <table>
+                {{ formulario.as_table }}
+            </table>
+            <input
+                class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+                type="submit" value="Guardar Usuario">
+        </form>
+    </div>
+</center>
+{%endblock%}
+

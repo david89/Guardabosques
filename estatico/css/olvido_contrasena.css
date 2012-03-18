@@ -1,0 +1,25 @@
+body {
+    background-color: #FEEF63;
+    font-family: "Login";
+    font-size: 20px;
+    margin: 20px 20px 20px 20px;
+}
+
+@font-face {
+    font-family: "Login";
+    src: url(./letraLog.ttf) format("truetype");
+}
+
+#forma {
+    text-align: center;
+}
+
+a {
+    color:black;
+}
+
+a:hover {
+	cursor: pointer;
+	color:green;
+}
+
