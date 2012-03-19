@@ -16,5 +16,133 @@
             "email": "david@david.com", 
             "date_joined": "2012-03-17 17:27:09"
         }
+    },
+    {
+        "pk": 1, 
+        "model": "usuario.carrera", 
+        "fields": {
+            "nombre": "Ingenier\u00c3\u00ada El\u00c3\u00a9ctrica", 
+            "codigo": "0100"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "usuario.carrera", 
+        "fields": {
+            "nombre": "Ingenier\u00c3\u00ada Mec\u00c3\u00a1nica", 
+            "codigo": "0200"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "usuario.carrera", 
+        "fields": {
+            "nombre": "Ingenier\u00c3\u00ada Qu\u00c3\u00admica", 
+            "codigo": "0300"
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "usuario.carrera", 
+        "fields": {
+            "nombre": "Licenciatura en Qu\u00c3\u00admica", 
+            "codigo": "0400"
+        }
+    }, 
+    {
+        "pk": 5, 
+        "model": "usuario.carrera", 
+        "fields": {
+            "nombre": "Licenciatura en Matem\u00c3\u00a1ticas", 
+            "codigo": "0500"
+        }
+    }, 
+    {
+        "pk": 6, 
+        "model": "usuario.carrera", 
+        "fields": {
+            "nombre": "Ingenier\u00c3\u00ada Electr\u00c3\u00b3nica", 
+            "codigo": "0600"
+        }
+    }, 
+    {
+        "pk": 7, 
+        "model": "usuario.carrera", 
+        "fields": {
+            "nombre": "Arquitectura", 
+            "codigo": "0700"
+        }
+    }, 
+    {
+        "pk": 8, 
+        "model": "usuario.carrera", 
+        "fields": {
+            "nombre": "Ingenier\u00c3\u00ada de la Computaci\u00c3\u00b3n", 
+            "codigo": "0800"
+        }
+    }, 
+    {
+        "pk": 9, 
+        "model": "usuario.carrera", 
+        "fields": {
+            "nombre": "Licenciatura en F\u00c3\u00adsica", 
+            "codigo": "1000"
+        }
+    }, 
+    {
+        "pk": 10, 
+        "model": "usuario.carrera", 
+        "fields": {
+            "nombre": "Urbanismo", 
+            "codigo": "1100"
+        }
+    }, 
+    {
+        "pk": 11, 
+        "model": "usuario.carrera", 
+        "fields": {
+            "nombre": "Ingenier\u00c3\u00ada Geof\u00c3\u00adsica", 
+            "codigo": "1200"
+        }
+    }, 
+    {
+        "pk": 12, 
+        "model": "usuario.carrera", 
+        "fields": {
+            "nombre": "Ingenier\u00c3\u00ada de Materiales", 
+            "codigo": "1500"
+        }
+    }, 
+    {
+        "pk": 13, 
+        "model": "usuario.carrera", 
+        "fields": {
+            "nombre": "Ingenier\u00c3\u00ada de Producci\u00c3\u00b3n", 
+            "codigo": "1700"
+        }
+    }, 
+    {
+        "pk": 14, 
+        "model": "usuario.carrera", 
+        "fields": {
+            "nombre": "Licenciatura en Biolog\u00c3\u00ada", 
+            "codigo": "1900"
+        }
+    }, 
+    {
+        "pk": 15, 
+        "model": "usuario.carrera", 
+        "fields": {
+            "nombre": "Licenciatura en Gesti\u00c3\u00b3n de la Hospitalidad", 
+            "codigo": "3000"
+        }
+    }, 
+    {
+        "pk": 16, 
+        "model": "usuario.carrera", 
+        "fields": {
+            "nombre": "Licenciatura en Comercio Internacional", 
+            "codigo": "3200"
+        }
     }
 ]

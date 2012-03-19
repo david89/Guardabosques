@@ -23,7 +23,7 @@ def inicio(request):
                                   {},
                                   context_instance=RequestContext(request))
 
-    return render_to_response(u'inicio_usuario.html',
+    return render_to_response(u'inicio_estudiante.html',
                               {},
                               context_instance=RequestContext(request))
 

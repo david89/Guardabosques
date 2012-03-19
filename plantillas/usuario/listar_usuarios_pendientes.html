@@ -1,0 +1,61 @@
+{% extends "inicio_coordinador.html" %}
+
+{% block contenido_centro %}
+
+<div id="contenedor_central">
+
+<script type="text/javascript"
+    src="{{ STATIC_URL }}js/jquery.confirm/jquery.confirm.js"></script>
+<script type="text/javascript"
+    src="{{ STATIC_URL }}js/jquery.confirm/eliminar-usuario.js"></script>
+
+<div class="contenido_titulo">
+    <h2>Lista de usuarios</h2>
+</div>
+
+<table id="tabla-caja-a" summary="Lista de actividades">
+    <thead>
+        <tr>
+            <th>Cédula</th>
+            <th>Nombre</th>
+            <th>Correo</th>
+            <th>¿Es activo?</th>
+            <th>¿Es coordinador?</th>
+            <th>Editar</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for perfil in perfiles_list %}
+        <tr>
+            <td>{{ perfil.usuario.username }}</td>
+            <td>{{ perfil.usuario.get_full_name }}</td>
+            <td>{{ perfil.usuario.email }}</td>
+            <td>
+            {% if perfil.usuario.is_active %}
+                <img width=20px height=20px
+                    src="{{ STATIC_URL }}imagenes/aprobado.png"/>
+            {% endif %}
+            </td>
+            <td>
+            {% if perfil.coodinador_interino %}
+                <img width=20px height=20px
+                    src="{{ STATIC_URL }}imagenes/aprobado.png"/>
+            {% endif %}
+            </td>
+
+            <td>
+                {% url editar_usuario usuario.pk as enlace  %}
+                <a class="editar" href="{{ enlace }}">
+                    <img src="{{ STATIC_URL }}imagenes/editable.png"/>
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<br />
+</div>
+
+{% endblock %}
+

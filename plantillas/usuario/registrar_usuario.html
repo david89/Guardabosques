@@ -1,0 +1,133 @@
+{% extends "inicio_coordinador.html" %}
+{% block contenido_centro %}
+<script type="text/javascript">
+    $.validator.addMethod("carne_valido",
+                          function(valor, elemento) {
+                            var re;
+
+                            re = /^\d{2}-\d{5}$/;
+
+                            return re.test(valor);
+                          },
+                          "Use el formato: 01-23456");
+    $.validator.addMethod("telefono_valido",
+                          function(valor, elemento) {
+                            var re;
+
+                            re = /^\d{3}-\d{7}$/;
+
+                            return this.optional(elemento) || re.test(valor);
+                          },
+                          "Use el formato: 111-2222222");
+    $.validator.addMethod("clave_valida",
+                          function(valor, elemento) {
+                            return valor.length >= 6;
+                          },
+                          "Su clave debe ser mayor de 5 caracteres");
+
+	$(document).ready(function() {
+		$('#id_cedula').addClass('ui-widget ui-corner-all');
+		$('#id_nombres').addClass('ui-widget ui-corner-all');
+		$('#id_apellidos').addClass('ui-widget ui-corner-all');
+		$('#id_clave').addClass('ui-widget ui-corner-all');
+		$('#id_confirmar_clave').addClass('ui-widget ui-corner-all');
+		$('#id_carne').addClass('ui-widget ui-corner-all');
+		$('#id_telefono_principal').addClass('ui-widget ui-corner-all');
+		$('#id_telefono_opcional').addClass('ui-widget ui-corner-all');
+		$('#id_zona').addClass('ui-widget ui-corner-all');
+		$('#id_limitaciones_medicas').addClass('ui-widget ui-corner-all');
+		$('#id_limitaciones_fisicas').addClass('ui-widget ui-corner-all');
+		$('#id_carrera').addClass('ui-widget ui-corner-all');
+	});
+    
+
+	$(document).ready(function() {
+		$(".formulario").validate({
+            rules: {
+                cedula: {
+                    required: true,
+                    number: true
+                },
+                nombres: "required",
+                apellidos: "required",
+                clave: "clave_valida",
+                confirmar_clave: {
+                    equalTo: "#id_clave"
+                },
+                carne: {
+                    required: true,
+                    carne_valido: true
+                },
+                telefono_principal: {
+                    required: true,
+                    telefono_valido: true
+                },
+                telefono_opcional: "telefono_valido",
+                zona: "required",
+                carrera: "required"
+            },
+            messages: {
+                cedula: {
+                    required: "Por favor ingrese su cédula",
+                    number: "La cédula debe tener sólo dígitos"
+                },
+                nombres: {
+                    required: "Por favor ingrese su nombre"
+                },
+                apellidos: {
+                    required: "Por favor ingrese su apellido"
+                },
+                confirmar_clave: {
+                    equalTo: "Su clave no coincide"
+                },
+                carne: {
+                    required: "Por favor ingrese el carné"
+                },
+                telefono_principal: {
+                    required: "Por favor ingrese este teléfono"
+                },
+                zona: {
+                    required: "Por favor ingrese la zona donde vive"
+                },
+                carrera: {
+                    required: "Por favor ingrese su carrera"
+                }
+            }
+		});
+	});
+</script>
+<style type="text/css">
+</style>
+<div class="contenido_titulo">
+    <h2>Registrar Usuario</h2>
+</div>
+
+<center>
+    <div class="ui-widget-content ui-corner-all"
+        style="width: 700px; padding: 10px;">
+        {% if formulario.non_field_errors or error %}
+            <p style="color: red;">Por favor corrija los siguientes errores</p>
+            <ul class="errorList">
+                {% if error %}
+                    <li>{{ error }}</li>
+                {% endif %}
+                {% for error_formulario in formulario.non_field_errors %}
+                    <li>{{ error_formulario }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        {% url registrar_usuario as enlace %}
+        <form class="formulario" action="{{ enlace }}" method="POST">
+            {% csrf_token %}
+            <table>
+                {{ formulario.as_table }}
+            </table>
+            <input
+                class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+                type="submit" value="Registrarse">
+        </form>
+    </div>
+</center>
+{% endblock %}
+
