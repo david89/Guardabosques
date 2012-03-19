@@ -12,4 +12,7 @@ urlpatterns = patterns('',
     url(r'^agregar$', 
         u'Guardabosques.actividad.views.agregar_actividad',
         name=u'agregar_actividad'),
+    url(r'^editar/(?P<identificador>\d+)$', 
+        u'Guardabosques.actividad.views.editar_actividad',
+        name=u'editar_actividad'),
 )

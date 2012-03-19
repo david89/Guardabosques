@@ -24,7 +24,7 @@
 <div id="contenedor_central">
 
 <div class="contenido_titulo">
-    <h2>Agregar actividad</h2>
+    <h2>Editar actividad</h2>
 </div>
 
 <center>
@@ -36,7 +36,7 @@
                 <ul class="errorlist"><li>{{ error }}</li></ul>
             {% endif %}
         {% endif %}
-        {% url agregar_actividad as enlace %}
+        {% url editar_actividad as enlace %}
         <form class="form" action="{{ enlace }}" method="POST">
             {% csrf_token %}
             <table>

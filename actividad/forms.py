@@ -9,9 +9,9 @@ from Guardabosques.actividad.models import Actividad
 
 ##
 #  Formulario del administrador para registrar usuarios
-class CrearActividad(ModelForm):
+class FormularioActividad(ModelForm):
     def clean(self):
-        datos = super(CrearActividad, self).clean()
+        datos = super(FormularioActividad, self).clean()
         return datos
 
     class Meta:

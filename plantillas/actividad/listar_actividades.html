@@ -65,9 +65,10 @@
             {% endif %}
 
             <td>
-                <input type="image" 
-                       src="{{ STATIC_URL }}imagenes/editable.png" id="submit"
-                       width=20px height=20px>
+                {% url editar_actividad actividad.pk as enlace  %}
+                <a class="editar" href="{{ enlace }}">
+                    <img src="{{ STATIC_URL }}imagenes/editable.png"/>
+                </a>
             </td>
             <td>
                 {% url eliminar_actividad actividad.pk as enlace  %}
