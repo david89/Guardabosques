@@ -34,6 +34,15 @@ body {
 	height: 400px;
 }
 
+
+#contenedor_central {
+	margin: 1em auto;
+	width: 90%;
+	height: 100%;
+    margin-bottom: 0px;
+    margin-top: 0px;
+}
+
 #contenido_login {
 	text-align: left;
 	width: 1000px;
@@ -224,7 +233,13 @@ a.modificar {
 a.eliminar {
 	width: 15px;
 	height: 15px;
-	background-image: url("../imagenes/delete.png");
+	background-image: url("../imagenes/delete.png") no-repeat;
+}
+
+a.eliminar2 {
+	width: 20px;
+	height: 20px;
+	background-image: url("../imagenes/rechazada.png") no-repeat;
 }
 
 .ui-state-error {
@@ -232,4 +247,68 @@ a.eliminar {
 	font-size: 12px;
 	float: right;
 	clear:both;
+}
+
+#tabla-caja-a
+{
+	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+	font-size: 12px;
+	margin: 0px;
+	width: 100%;
+	text-align: left;
+	border-collapse: collapse;
+}
+#tabla-caja-a th
+{
+	font-size: 13px;
+	font-weight: normal;
+	padding: 8px;
+	background: #6CC150;
+	border-top: 4px solid #417430;
+	border-bottom: 4px solid #417430;
+	color: #DBFFB8;
+}
+#tabla-caja-a td
+{
+	padding: 8px;
+	background: #99FF99; 
+	border-bottom: 1px solid #1F331F;
+	color: #003300;
+	border-top: 1px solid transparent;
+}
+#tabla-caja-a tr:hover td
+{
+	background: #EBFFEB;
+	color: #003300;
+}
+
+
+#tabla-caja-b
+{
+	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+	font-size: 12px;
+	margin: 45px;
+	width: 480px;
+	text-align: center;
+	border-collapse: collapse;
+	border-top: 7px solid #9baff1;
+	border-bottom: 7px solid #9baff1;
+}
+#tabla-caja-b th
+{
+	font-size: 13px;
+	font-weight: normal;
+	padding: 8px;
+	background: #e8edff;
+	border-right: 1px solid #9baff1;
+	border-left: 1px solid #9baff1;
+	color: #039;
+}
+#tabla-caja-b td
+{
+	padding: 8px;
+	background: #e8edff; 
+	border-right: 1px solid #aabcfe;
+	border-left: 1px solid #aabcfe;
+	color: #669;
 }

@@ -14,7 +14,8 @@
             &nbsp;&nbsp;Búsquedas </a></td>
     </tr>
     <tr>
-        <td id="boton"><a id="actividades" href="#">
+        {% url listar_actividades as enlace %}
+        <td id="boton"><a id="actividades" href="{{ enlace }}">
             &nbsp;&nbsp;Actividades </a></td>
     </tr>
     <tr>

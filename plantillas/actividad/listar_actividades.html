@@ -1,0 +1,98 @@
+{% extends "inicio_coordinador.html" %}
+
+{% block contenido_centro %}
+
+<div id="contenedor_central">
+
+<script type="text/javascript"
+    src="{{ STATIC_URL }}js/jquery.confirm/jquery.confirm.js"></script>
+<script type="text/javascript"
+    src="{{ STATIC_URL }}js/jquery.confirm/eliminar-actividad.js"></script>
+
+<h2>Lista de actividades</h2>
+
+<table id="tabla-caja-a" summary="Lista de actividades">
+    <thead>
+        <tr>
+            <th>Nombre de la actividad</th>
+            <th>Obj. 1</th>
+            <th>Obj. 2</th>
+            <th>Obj. 3</th>
+            <th>Obj. 4</th>
+            <th>Obj. 5</th>
+            <th>Editar</th>
+            <th>Eliminar</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for actividad in actividades %}
+        <tr>
+            <td>{{ actividad.nombre }}</td>
+
+            {% if actividad.obj1 %}
+            <td><img width=20px height=20px
+                    src="{{ STATIC_URL }}imagenes/aprobado.png"/></td>
+            {% else %}
+            <td></td>
+            {% endif %}
+
+            {% if actividad.obj2 %}
+            <td><img width=20px height=20px
+                    src="{{ STATIC_URL }}imagenes/aprobado.png"/></td>
+            {% else %}
+            <td></td>
+            {% endif %}
+
+            {% if actividad.obj3 %}
+            <td><img width=20px height=20px
+                    src="{{ STATIC_URL }}imagenes/aprobado.png"/></td>
+            {% else %}
+            <td></td>
+            {% endif %}
+
+            {% if actividad.obj4 %}
+            <td><img width=20px height=20px
+                    src="{{ STATIC_URL }}imagenes/aprobado.png"/></td>
+            {% else %}
+            <td></td>
+            {% endif %}
+
+            {% if actividad.obj5 %}
+            <td><img width=20px height=20px
+                    src="{{ STATIC_URL }}imagenes/aprobado.png"/></td>
+            {% else %}
+            <td></td>
+            {% endif %}
+
+            <td>
+                <input type="image" 
+                       src="{{ STATIC_URL }}imagenes/editable.png" id="submit"
+                       width=20px height=20px>
+            </td>
+            <td>
+                {% url eliminar_actividad actividad.pk as enlace  %}
+                <a class="eliminar2" href="{{ enlace }}">
+                    <img src="{{ STATIC_URL }}imagenes/rechazada.png"/>
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<br />
+<div style="text-align:left">
+<a class="agregar" href="{{ enlace }}">
+    <img width=20px height=20px src="{{ STATIC_URL }}imagenes/add.png"/>
+    Agregar actividad
+</a>
+</div>
+</center>
+
+<div style="text-align:left">
+{% include "actividad/leyenda_objetivos.html" %}
+</div>
+
+</div>
+
+{% endblock %}
+
