@@ -3,6 +3,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 
 from actividad.models import Actividad
+from actividad.forms import CrearActividad
 
 def listar_actividades(request):
     plantilla = u'actividad/listar_actividades.html'
@@ -15,3 +16,17 @@ def eliminar_actividad(request, identificador):
     actividad = Actividad.objects.filter(id=identificador)[0]
     actividad.delete()
     return listar_actividades(request)
+
+def agregar_actividad(request):
+    plantilla = u'actividad/agregar_actividad.html'
+    if request.method == 'POST':
+        formulario = CrearActividad(request.POST)
+        if formulario.is_valid():
+            formulario.save()
+            return listar_actividades(request)
+    else:
+        formulario = CrearActividad()
+
+    return render_to_response(plantilla,
+                              {'formulario': formulario},
+                              context_instance=RequestContext(request))

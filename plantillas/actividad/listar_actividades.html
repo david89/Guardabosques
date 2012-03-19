@@ -79,14 +79,16 @@
     {% endfor %}
     </tbody>
 </table>
+
 <br />
+
 <div style="text-align:left">
+{% url agregar_actividad as enlace %}
 <a class="agregar" href="{{ enlace }}">
     <img width=20px height=20px src="{{ STATIC_URL }}imagenes/add.png"/>
     Agregar actividad
 </a>
 </div>
-</center>
 
 <div style="text-align:left">
 {% include "actividad/leyenda_objetivos.html" %}
