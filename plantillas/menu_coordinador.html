@@ -27,6 +27,11 @@
             &nbsp;&nbsp;Notificaciones </a></td>
     </tr>
     <tr>
+        {% url jornadas_pendientes as enlace %}
+        <td id="boton"><a id="jornadas" href="{{ enlace }}">
+            &nbsp;&nbsp;Jornadas</a></td>
+    </tr>
+    <tr>
         {% url finalizar_sesion as enlace %}
         <td id="boton"><a href="{{ enlace }}">
             &nbsp;&nbsp;Cerrar Sesión </a></td>

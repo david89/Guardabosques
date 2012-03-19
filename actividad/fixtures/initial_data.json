@@ -1,0 +1,67 @@
+[
+    {
+        "pk": 1, 
+        "model": "actividad.actividad", 
+        "fields": {
+            "obj1": false, 
+            "obj3": false, 
+            "obj2": true, 
+            "obj5": false, 
+            "obj4": false, 
+            "descripcion": "", 
+            "nombre": "Demarcaci\u00f3n"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "actividad.actividad", 
+        "fields": {
+            "obj1": false, 
+            "obj3": false, 
+            "obj2": false, 
+            "obj5": false, 
+            "obj4": true, 
+            "descripcion": "", 
+            "nombre": "Levantamiento de senderos"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "actividad.actividad", 
+        "fields": {
+            "obj1": false, 
+            "obj3": false, 
+            "obj2": false, 
+            "obj5": false, 
+            "obj4": true, 
+            "descripcion": "", 
+            "nombre": "Apredizaje en uso del GPS"
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "actividad.actividad", 
+        "fields": {
+            "obj1": true, 
+            "obj3": false, 
+            "obj2": false, 
+            "obj5": false, 
+            "obj4": true, 
+            "descripcion": "", 
+            "nombre": "Observaci\u00f3n de aves"
+        }
+    }, 
+    {
+        "pk": 5, 
+        "model": "actividad.actividad", 
+        "fields": {
+            "obj1": true, 
+            "obj3": false, 
+            "obj2": true, 
+            "obj5": false, 
+            "obj4": false, 
+            "descripcion": "", 
+            "nombre": "Siembra de \u00e1rboles"
+        }
+    }
+]

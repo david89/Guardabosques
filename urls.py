@@ -10,6 +10,7 @@ urlpatterns = patterns(u'',
         name=u'inicio'),
     url(r'^usuario/', include(u'Guardabosques.usuario.urls')),
     url(r'^actividad/', include(u'Guardabosques.actividad.urls')),
+    url(r'^jornada/', include(u'Guardabosques.jornada.urls')),
 )
 
 #urlpatterns += patterns('',
