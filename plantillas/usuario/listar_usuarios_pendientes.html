@@ -7,12 +7,13 @@
 <script type="text/javascript"
     src="{{ STATIC_URL }}js/jquery.confirm/jquery.confirm.js"></script>
 <script type="text/javascript"
-    src="{{ STATIC_URL }}js/jquery.confirm/eliminar-usuario.js"></script>
+    src="{{ STATIC_URL }}js/jquery.confirm/eliminar-usuario-pendiente.js"></script>
 
 <div class="contenido_titulo">
     <h2>Lista de usuarios</h2>
 </div>
 
+{% if perfiles_pendientes_list %}
 <table id="tabla-caja-a" summary="Lista de actividades">
     <thead>
         <tr>
@@ -34,7 +35,7 @@
             {% endif %}
             </td>
             <td>
-            {% if perfil.coodinador_interino %}
+            {% if perfil.coordinador %}
                 <img width=20px height=20px
                     src="{{ STATIC_URL }}imagenes/aprobado.png"/>
             {% endif %}
@@ -46,8 +47,8 @@
                 </a>
             </td>
             <td>
-                {% url editar_usuario_pendiente perfil.pk as enlace  %}
-                <a class="editar" href="{{ enlace }}">
+                {% url eliminar_usuario_pendiente perfil.pk as enlace  %}
+                <a class="eliminar2" href="{{ enlace }}">
                     <img src="{{ STATIC_URL }}imagenes/rechazada.png"/>
                 </a>
             </td>
@@ -55,6 +56,9 @@
     {% endfor %}
     </tbody>
 </table>
+{% else %}
+    <p>No hay usuarios pendientes en el sistema</p>
+{% endif %}
 
 <br />
 </div>

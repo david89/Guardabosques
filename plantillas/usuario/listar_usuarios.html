@@ -13,6 +13,7 @@
     <h2>Lista de usuarios</h2>
 </div>
 
+{% if perfiles_list %}
 <table id="tabla-caja-a" summary="Lista de actividades">
     <thead>
         <tr>
@@ -37,14 +38,14 @@
             {% endif %}
             </td>
             <td>
-            {% if perfil.coodinador_interino %}
+            {% if perfil.coordinador_interino %}
                 <img width=20px height=20px
                     src="{{ STATIC_URL }}imagenes/aprobado.png"/>
             {% endif %}
             </td>
 
             <td>
-                {% url editar_usuario perfil.pk as enlace  %}
+                {% url editar_usuario_administrador perfil.pk as enlace  %}
                 <a class="editar" href="{{ enlace }}">
                     <img src="{{ STATIC_URL }}imagenes/editable.png"/>
                 </a>
@@ -53,6 +54,9 @@
     {% endfor %}
     </tbody>
 </table>
+{% else %}
+    <p>No hay usuarios registrados en el sistema</p>
+{% endif %}
 
 <br />
 </div>

@@ -2,13 +2,13 @@
 
 {% block contenido_centro %}
     <div class="contenido_titulo">
-        <h2>Agregar nuevos usuarios</h2>
+        <h2>Editar usuario</h2>
     </div>
     <center>
-        <p style="color: green;">El usuario se ha agregado exitosamente</p> 
+        <p style="color: green;">El usuario se ha editado exitosamente</p> 
         <table>
             <tr>
-                {% url agregar_usuario as enlace %}
+                {% url listar_usuarios as enlace %}
 
                 <td id="boton"><a id="admin_usuarios" href="{{ enlace }}">
                     &nbsp;&nbsp;Volver</a>

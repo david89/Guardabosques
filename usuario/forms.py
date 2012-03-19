@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from django.core.exceptions import ValidationError
-from django.forms import ModelForm
-from django.forms.fields import CharField
+from django.forms import ModelForm, Form
+from django.forms.fields import CharField, BooleanField
 from django.forms.widgets import PasswordInput
 
 from Guardabosques.usuario.models import PerfilPendiente, Perfil
@@ -47,4 +47,13 @@ class CrearPerfil(ModelForm):
                   u'confirmar_clave', u'carne', u'carrera',
                   u'telefono_principal', u'telefono_opcional', u'zona',
                   u'limitaciones_fisicas', u'limitaciones_medicas')
+
+##
+#  Formulario para editar un perfil de usuario desde administrador.
+class EditarPerfilAdministrador(Form):
+    activo = BooleanField(label=u'¿Es activo?')
+    coordinador = BooleanField(label=u'¿Es coordinador interino?')
+
+    class Meta:
+        fields = (u'activo', u'coordinador')
 
