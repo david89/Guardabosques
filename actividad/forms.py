@@ -7,8 +7,6 @@ from django.forms import ModelForm
 
 from Guardabosques.actividad.models import Actividad
 
-##
-#  Formulario del administrador para registrar usuarios
 class FormularioActividad(ModelForm):
     def clean(self):
         datos = super(FormularioActividad, self).clean()

@@ -1,0 +1,66 @@
+{% extends "inicio_coordinador.html" %}
+
+{% block contenido_centro %}
+
+<div id="contenedor_central">
+
+<h2>Jornadas pendientes</h2>
+
+<form name="jornadas" method="POST">
+
+{% csrf_token %}
+<table id="tabla-caja-a" summary="Lista de actividades">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Fecha</th>
+            <th>Hora inicial</th>
+            <th>Hora final</th>
+            <th>Detalles de la jornada</th>
+            <th>Aprobar</th>
+            <th>Rechazar</th>
+            <th>Pendiente</th>
+        </tr>
+    </thead>
+    <tbody>
+
+    {% for jornada in jornadas %}
+        <tr>
+            <td>{{ jornada.perfil }}</td>
+            <td>{{ jornada.fecha|date:"d/m/y" }}</td>
+            <td>{{ jornada.hora_inicio|time:"H:i" }}</td>
+            <td>{{ jornada.hora_fin|time:"H:i" }}</td>
+            <td align="center">
+                {% url descripcion_jornada jornada.pk as enlace  %}
+                <a class="editar" href="{{ enlace }}">
+                    <img src="{{ STATIC_URL }}imagenes/detalles.png"/>
+                </a>
+            </td>
+
+            <td align="center">
+                <input type="radio" value="A" name="{{ jornada.pk }}" />
+            </td>
+            <td align="center">
+                <input type="radio" value="R" name="{{ jornada.pk }}" />
+            </td>
+            <td align="center">
+                <input type="radio" value="P" name="{{ jornada.pk }}" 
+                checked="checked" />
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<br />
+
+<input class="ui-button ui-widget ui-state-default
+              ui-corner-all ui-button-text-only"
+       type="submit" value="Suministrar cambios">
+
+</form>
+
+</div>
+
+{% endblock %}
+

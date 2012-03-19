@@ -1,0 +1,36 @@
+{% extends "inicio_coordinador.html" %}
+{% block contenido_centro %}
+
+<style type="text/css">
+</style>
+
+<div id="contenedor_central">
+
+<div class="contenido_titulo">
+    <h2>Descripción de actividad</h2>
+</div>
+
+<div align="left">
+<ul>
+{% for detalle in detalles %}
+    <li>
+        {{ detalle.actividad }}
+        <br />
+        <p>
+        {{ detalle.descripcion }}
+        </p>
+    </li>
+{% endfor %}
+</ul>
+
+</div>
+
+{% url jornadas_pendientes as enlace %}
+<a class="volver" href="{{ enlace }}">
+    <img width=20px height=20px src="{{ STATIC_URL }}imagenes/salida.png"/>
+    Volver
+</a>
+
+</div>
+
+{% endblock %}
