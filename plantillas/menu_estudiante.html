@@ -1,0 +1,13 @@
+<table>
+    <tr>
+        {% url inicio as enlace %}
+        <td id="boton"><a id="inicio" href="{{ enlace }}">
+            &nbsp;&nbsp;Inicio </a></td>
+    </tr>
+    <tr>
+        {% url finalizar_sesion as enlace %}
+        <td id="boton"><a href="{{ enlace }}">
+            &nbsp;&nbsp;Cerrar Sesión </a></td>
+    </tr>
+</table>
+
