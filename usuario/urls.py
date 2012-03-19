@@ -6,7 +6,7 @@ from django.core.urlresolvers import reverse
 from django.views.generic.simple import direct_to_template
 from django.views.generic.list_detail import object_list
 
-from models import Perfil
+from models import Perfil, PerfilPendiente
 
 urlpatterns = patterns(u'',
     url(r'^$',

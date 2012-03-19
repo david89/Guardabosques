@@ -44,7 +44,7 @@
             </td>
 
             <td>
-                {% url editar_usuario usuario.pk as enlace  %}
+                {% url editar_usuario perfil.pk as enlace  %}
                 <a class="editar" href="{{ enlace }}">
                     <img src="{{ STATIC_URL }}imagenes/editable.png"/>
                 </a>

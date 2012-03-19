@@ -16,22 +16,19 @@
 <table id="tabla-caja-a" summary="Lista de actividades">
     <thead>
         <tr>
-            <th>Cédula</th>
-            <th>Nombre</th>
             <th>Correo</th>
             <th>¿Es activo?</th>
             <th>¿Es coordinador?</th>
             <th>Editar</th>
+            <th>Eliminar</th>
         </tr>
     </thead>
     <tbody>
-    {% for perfil in perfiles_list %}
+    {% for perfil in perfiles_pendientes_list %}
         <tr>
-            <td>{{ perfil.usuario.username }}</td>
-            <td>{{ perfil.usuario.get_full_name }}</td>
-            <td>{{ perfil.usuario.email }}</td>
+            <td>{{ perfil.correo }}</td>
             <td>
-            {% if perfil.usuario.is_active %}
+            {% if perfil.activo %}
                 <img width=20px height=20px
                     src="{{ STATIC_URL }}imagenes/aprobado.png"/>
             {% endif %}
@@ -42,11 +39,16 @@
                     src="{{ STATIC_URL }}imagenes/aprobado.png"/>
             {% endif %}
             </td>
-
             <td>
-                {% url editar_usuario usuario.pk as enlace  %}
+                {% url editar_usuario_pendiente perfil.pk as enlace  %}
                 <a class="editar" href="{{ enlace }}">
                     <img src="{{ STATIC_URL }}imagenes/editable.png"/>
+                </a>
+            </td>
+            <td>
+                {% url editar_usuario_pendiente perfil.pk as enlace  %}
+                <a class="editar" href="{{ enlace }}">
+                    <img src="{{ STATIC_URL }}imagenes/rechazada.png"/>
                 </a>
             </td>
         </tr>
