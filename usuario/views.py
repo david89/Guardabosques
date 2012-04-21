@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
@@ -10,8 +12,23 @@ from django.template import RequestContext
 from django.views.decorators.csrf import csrf_exempt
 
 from usuario.models import PerfilPendiente, Perfil
-from usuario.forms import CrearPerfilPendiente, CrearPerfil, \
+from usuario.forms import CrearPerfilPendiente, CrearPerfil, EditarPerfil,\
                           EditarPerfilAdministrador
+
+def enviar_correo_usuario_pendiente(perfil, correo):
+    mensaje = EmailMultiAlternatives(perfil.asunto_correo(),
+                                     perfil.mensaje_correo(),
+                                     to=[correo])
+    mensaje.attach_alternative(perfil.mensaje_correo(html=True),
+                               u'text/html')
+    mensaje.send()
+
+def agregar_error_formulario(formulario, error):
+    errores = formulario._errors.get('__all__', [])
+    errores.append(formulario.error_class([error]))
+    formulario._errors['__all__'] = errores
+
+    return formulario
 
 @staff_member_required
 def agregar_usuario(request):
@@ -26,22 +43,17 @@ def agregar_usuario(request):
 
             # Se intenta enviar un correo a la persona.
             try:
-                mensaje = EmailMultiAlternatives(perfil.asunto_correo(),
-                                                 perfil.mensaje_correo(),
-                                                 to=[perfil.correo])
-                mensaje.attach_alternative(perfil.mensaje_correo(html=True),
-                                           u'text/html')
-                mensaje.send()
+                enviar_correo_usuario_pendiente(perfil, perfil.correo)
             except Exception as e:
                 perfil.delete()
+                error = u'No se pudo agregar el usuario en este momento. Por '\
+                        u'favor intente luego nuevamente.'
+
+                formulario = agregar_error_formulario(formulario, error)
+
                 return render_to_response(plantilla,
-                                          {u'formulario': formulario,
-                                           u'error': u'No se pudo agregar el '
-                                                     u'usuario en este '
-                                                     u'momento. Por favor '
-                                                     u'intente luego '
-                                                     u'nuevamente.'},
-                                          context_instance=
+                                          {u'formulario': formulario},
+                                          context_instance=\
                                             RequestContext(request))
 
             return render_to_response(exito,
@@ -66,6 +78,8 @@ def registrar_usuario(request, verificador):
         if formulario.is_valid():
             datos = formulario.cleaned_data
 
+            # TODO: Cambiar el formulario o el método clean o save del
+            # del formulario para que no haya que hacer esto.
             usuario = User.objects.create_user(datos[u'cedula'],
                                                perfil_pendiente.correo,
                                                datos[u'clave'])
@@ -92,22 +106,18 @@ def registrar_usuario(request, verificador):
 
             # Se intenta enviar un correo a la persona.
             try:
-                mensaje = EmailMultiAlternatives(perfil.asunto_correo(),
-                                                 perfil.mensaje_correo(),
-                                                 to=[perfil.usuario.email])
-                mensaje.attach_alternative(perfil.mensaje_correo(html=True),
-                                           u'text/html')
-                mensaje.send()
+                enviar_correo_usuario_pendiente(perfil, perfil.usuario.correo)
             except Exception as e:
                 perfil.delete()
                 usuario.delete()
+
+                error = u'No se pudo agregar el usuario en este momento. Por '\
+                        u'favor intente luego nuevamente.'
+
+                formulario = agregar_error_formulario(formulario, error)
+
                 return render_to_response(plantilla,
-                                          {u'formulario': formulario,
-                                           u'error': u'No se pudo agregar el '
-                                                     u'usuario en este '
-                                                     u'momento. Por favor '
-                                                     u'intente luego '
-                                                     u'nuevamente.'},
+                                          {u'formulario': formulario},
                                           context_instance=
                                             RequestContext(request))
 
@@ -119,6 +129,47 @@ def registrar_usuario(request, verificador):
             return HttpResponseRedirect(reverse(u'inicio'))
     else:
         formulario = CrearPerfil()
+
+    return render_to_response(plantilla,
+                              {u'formulario': formulario},
+                              context_instance=RequestContext(request))
+
+@login_required
+def modificar_perfil(request):
+    usuario = request.user
+    perfil = get_object_or_404(Perfil, usuario=usuario)
+    plantilla = u'usuario/modificar_perfil.html'
+
+    if request.method == u'POST':
+        formulario = EditarPerfil(request.POST, instance=perfil)
+        if formulario.is_valid():
+            datos = formulario.cleaned_data
+
+            # TODO: Ver el TODO de regsitrar usuario para disminuir este
+            # código.
+            usuario.username = datos[u'cedula']
+            if (datos[u'clave']):
+                usuario.set_password(datos[u'clave'])
+            usuario.first_name = datos[u'nombres']
+            usuario.last_name = datos[u'apellidos']
+            usuario.save()
+
+            perfil.carne = datos[u'carne']
+            perfil.telefono_principal = datos[u'telefono_principal']
+            perfil.telefono_opcional = datos[u'telefono_opcional']
+            perfil.zona = datos[u'zona']
+            perfil.limitaciones_fisicas = datos[u'limitaciones_fisicas']
+            perfil.limitaciones_medicas = datos[u'limitaciones_medicas']
+            perfil.carrera = datos[u'carrera']
+            perfil.save()
+    else:
+        # TODO: Ver el TODO de registrar usuario para disminuir este código.
+        datos_usuario = {
+            'cedula': usuario.username,
+            'nombres': usuario.first_name,
+            'apellidos': usuario.last_name
+        }
+        formulario = EditarPerfil(instance=perfil, initial=datos_usuario)
 
     return render_to_response(plantilla,
                               {u'formulario': formulario},
@@ -138,21 +189,15 @@ def editar_usuario_pendiente(request, identificador):
 
             # Se intenta enviar un correo a la persona.
             try:
-                mensaje = EmailMultiAlternatives(perfil.asunto_correo(),
-                                                 perfil.mensaje_correo(),
-                                                 to=[perfil.correo])
-                mensaje.attach_alternative(perfil.mensaje_correo(html=True),
-                                           u'text/html')
-                mensaje.send()
+                enviar_correo_usuario_pendiente(perfil, perfil.correo)
             except Exception as e:
-                perfil.delete()
+                error = u'No se pudo editar el usuario en este momento. Por '\
+                        u'favor intente luego nuevamente.'
+
+                formulario = agregar_error_formulario(formulario, error)
+
                 return render_to_response(plantilla,
-                                          {u'formulario': formulario,
-                                           u'error': u'No se pudo editar el '
-                                                     u'usuario en este '
-                                                     u'momento. Por favor '
-                                                     u'intente luego '
-                                                     u'nuevamente.'},
+                                          {u'formulario': formulario},
                                           context_instance=
                                             RequestContext(request))
 
@@ -174,11 +219,9 @@ def editar_usuario_administrador(request, identificador):
     if request.method == u'POST':
         formulario = EditarPerfilAdministrador(request.POST)
         activo = bool(request.POST.get('activo', False))
-        coordinador = bool(request.POST.get('coordinador', False))
 
         perfil.usuario.is_active = activo
         perfil.usuario.save()
-        perfil.coordinador_interino = coordinador
         perfil.save()
 
         return render_to_response(exito,
@@ -186,7 +229,6 @@ def editar_usuario_administrador(request, identificador):
     else:
         formulario = EditarPerfilAdministrador()
         formulario.fields.values()[0].initial = perfil.usuario.is_active
-        formulario.fields.values()[1].initial = perfil.coordinador_interino
 
     return render_to_response(plantilla,
                               {u'formulario': formulario,
@@ -200,4 +242,3 @@ def eliminar_usuario_pendiente(request, identificador):
     perfil_pendiente.delete()
 
     return HttpResponseRedirect(reverse('listar_usuarios_pendientes'))
-

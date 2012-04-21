@@ -1,27 +1,9 @@
 [
     {
         "pk": 1, 
-        "model": "auth.user", 
-        "fields": {
-            "username": "david", 
-            "first_name": "", 
-            "last_name": "", 
-            "is_active": true, 
-            "is_superuser": true, 
-            "is_staff": true, 
-            "last_login": "2012-03-17 17:27:09", 
-            "groups": [], 
-            "user_permissions": [], 
-            "password": "sha1$bcc25$2426d7053ef77df04a1dc066abf0d4ecb7dd81de", 
-            "email": "david@david.com", 
-            "date_joined": "2012-03-17 17:27:09"
-        }
-    },
-    {
-        "pk": 1, 
         "model": "usuario.carrera", 
         "fields": {
-            "nombre": "Ingenier\u00c3\u00ada El\u00c3\u00a9ctrica", 
+            "nombre": "Ingenier\u00eda El\u00e9ctrica", 
             "codigo": "0100"
         }
     }, 
@@ -29,7 +11,7 @@
         "pk": 2, 
         "model": "usuario.carrera", 
         "fields": {
-            "nombre": "Ingenier\u00c3\u00ada Mec\u00c3\u00a1nica", 
+            "nombre": "Ingenier\u00eda Mec\u00e1nica", 
             "codigo": "0200"
         }
     }, 
@@ -37,7 +19,7 @@
         "pk": 3, 
         "model": "usuario.carrera", 
         "fields": {
-            "nombre": "Ingenier\u00c3\u00ada Qu\u00c3\u00admica", 
+            "nombre": "Ingenier\u00eda Qu\u00edmica", 
             "codigo": "0300"
         }
     }, 
@@ -45,7 +27,7 @@
         "pk": 4, 
         "model": "usuario.carrera", 
         "fields": {
-            "nombre": "Licenciatura en Qu\u00c3\u00admica", 
+            "nombre": "Licenciatura en Qu\u00edmica", 
             "codigo": "0400"
         }
     }, 
@@ -53,7 +35,7 @@
         "pk": 5, 
         "model": "usuario.carrera", 
         "fields": {
-            "nombre": "Licenciatura en Matem\u00c3\u00a1ticas", 
+            "nombre": "Licenciatura en Matem\u00e1ticas", 
             "codigo": "0500"
         }
     }, 
@@ -61,7 +43,7 @@
         "pk": 6, 
         "model": "usuario.carrera", 
         "fields": {
-            "nombre": "Ingenier\u00c3\u00ada Electr\u00c3\u00b3nica", 
+            "nombre": "Ingenier\u00eda Electr\u00f3nica", 
             "codigo": "0600"
         }
     }, 
@@ -77,7 +59,7 @@
         "pk": 8, 
         "model": "usuario.carrera", 
         "fields": {
-            "nombre": "Ingenier\u00c3\u00ada de la Computaci\u00c3\u00b3n", 
+            "nombre": "Ingenier\u00eda de la Computaci\u00f3n", 
             "codigo": "0800"
         }
     }, 
@@ -85,7 +67,7 @@
         "pk": 9, 
         "model": "usuario.carrera", 
         "fields": {
-            "nombre": "Licenciatura en F\u00c3\u00adsica", 
+            "nombre": "Licenciatura en F\u00edsica", 
             "codigo": "1000"
         }
     }, 
@@ -101,7 +83,7 @@
         "pk": 11, 
         "model": "usuario.carrera", 
         "fields": {
-            "nombre": "Ingenier\u00c3\u00ada Geof\u00c3\u00adsica", 
+            "nombre": "Ingenier\u00eda Geof\u00edsica", 
             "codigo": "1200"
         }
     }, 
@@ -109,7 +91,7 @@
         "pk": 12, 
         "model": "usuario.carrera", 
         "fields": {
-            "nombre": "Ingenier\u00c3\u00ada de Materiales", 
+            "nombre": "Ingenier\u00eda de Materiales", 
             "codigo": "1500"
         }
     }, 
@@ -117,7 +99,7 @@
         "pk": 13, 
         "model": "usuario.carrera", 
         "fields": {
-            "nombre": "Ingenier\u00c3\u00ada de Producci\u00c3\u00b3n", 
+            "nombre": "Ingenier\u00eda de Producci\u00f3n", 
             "codigo": "1700"
         }
     }, 
@@ -125,7 +107,7 @@
         "pk": 14, 
         "model": "usuario.carrera", 
         "fields": {
-            "nombre": "Licenciatura en Biolog\u00c3\u00ada", 
+            "nombre": "Licenciatura en Biolog\u00eda", 
             "codigo": "1900"
         }
     }, 
@@ -133,7 +115,7 @@
         "pk": 15, 
         "model": "usuario.carrera", 
         "fields": {
-            "nombre": "Licenciatura en Gesti\u00c3\u00b3n de la Hospitalidad", 
+            "nombre": "Licenciatura en Gesti\u00f3n de la Hospitalidad", 
             "codigo": "3000"
         }
     }, 
@@ -143,6 +125,42 @@
         "fields": {
             "nombre": "Licenciatura en Comercio Internacional", 
             "codigo": "3200"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "david", 
+            "first_name": "", 
+            "last_name": "", 
+            "is_active": true, 
+            "is_superuser": true, 
+            "is_staff": true, 
+            "last_login": "2012-04-14 20:50:02", 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "sha1$bcc25$2426d7053ef77df04a1dc066abf0d4ecb7dd81de", 
+            "email": "david@david.com", 
+            "date_joined": "2012-03-17 17:27:09"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "18837952", 
+            "first_name": "David Eleazar", 
+            "last_name": "G\u00f3mez Cerme\u00f1o", 
+            "is_active": true, 
+            "is_superuser": false, 
+            "is_staff": false, 
+            "last_login": "2012-04-15 15:37:34", 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "sha1$9382a$0729675aca7daeb13a5c94a8111e6fb6ceb45b1e", 
+            "email": "davisito89@gmail.com", 
+            "date_joined": "2012-04-14 20:51:46"
         }
     }
 ]

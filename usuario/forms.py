@@ -49,11 +49,28 @@ class CrearPerfil(ModelForm):
                   u'limitaciones_fisicas', u'limitaciones_medicas')
 
 ##
+#  Formulario para editar información de perfil.
+class EditarPerfil(CrearPerfil):
+    clave = CharField(widget=PasswordInput, label='Nueva clave',
+                      required=False)
+    confirmar_clave = CharField(widget=PasswordInput,
+                                label='Confirmar nueva clave',
+                                required=False)
+
+    def clean(self):
+        datos = super(CrearPerfil, self).clean()
+        cedula = datos[u'cedula']
+        if cedula != self.instance.usuario.username and\
+            Perfil.objects.exclude(pk=self.instance.pk).filter(usuario__username=cedula).exists():
+            raise ValidationError(u'Ya existe un usuario registrado con esa '
+                                  u'cédula de identidad')
+
+        return datos
+
+##
 #  Formulario para editar un perfil de usuario desde administrador.
 class EditarPerfilAdministrador(Form):
     activo = BooleanField(label=u'¿Es activo?')
-    coordinador = BooleanField(label=u'¿Es coordinador interino?')
 
     class Meta:
-        fields = (u'activo', u'coordinador')
-
+        fields = (u'activo')

@@ -1,42 +1,36 @@
 {% extends "inicio_coordinador.html" %}
 
 {% block contenido_centro %}
-    <div class="contenido_titulo">
-        <h2>Gestionar Usuarios</h2>
-    </div>
-    <center>
-        <table>
-            <tr>
-                <td id="boton">
-                    {% url agregar_usuario as enlace %}
+<h2>Gestionar Usuarios</h2>
+<div class="menu_centro">
+    <div class="menu col_2">
+        <ul>
+			<li class="boton">
+    			{% url agregar_usuario as enlace %}
 
-                    <a id="agregar_usuario"
-                        href="{{ enlace }}">
-                        &nbsp;&nbsp;Agregar usuario
-                    </a>
-                </td>
-            </tr>
-            <tr>
-                <td id="boton">
-                    {% url listar_usuarios as enlace %}
+                <a id="agregar_usuario"
+                    href="{{ enlace }}">
+                    Agregar usuario
+                </a>
+           	</li>
+           	<li class="boton">
+    			{% url listar_usuarios as enlace %}
 
-                    <a id="listar_usuarios"
-                        href="{{ enlace }}">
-                        &nbsp;&nbsp;Listar usuarios
-                    </a>
-                </td>
-            </tr>
-            <tr>
-                <td id="boton">
-                    {% url listar_usuarios_pendientes as enlace %}
+                <a id="listar_usuarios"
+                    href="{{ enlace }}">
+                    &nbsp;&nbsp;Listar usuarios
+                </a>
+           	</li>
+           	<li class="boton">
+    			{% url listar_usuarios_pendientes as enlace %}
 
-                    <a id="listar_usuarios_pendientes"
-                        href="{{ enlace }}">
-                        &nbsp;&nbsp;Usuarios pendientes
-                    </a>
-                </td>
-            </tr>
-        </table>
-    </center>
+                <a id="listar_usuarios_pendientes"
+                    href="{{ enlace }}">
+                    &nbsp;&nbsp;Usuarios pendientes
+                </a>
+           	</li>
+        </ul>
+   	</div>
+   	<div style="clear: both"></div>
+</div>
 {% endblock %}
-

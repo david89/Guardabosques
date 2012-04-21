@@ -8,3 +8,8 @@
 # No importar las variables de configuración del sistema.
 settings.py
 
+# Ni los siguientes relacionados con Eclipse creo.
+.project
+.pydevproject
+.settings/
+

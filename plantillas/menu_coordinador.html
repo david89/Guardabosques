@@ -1,40 +1,39 @@
-<table>
-    <tr>
-        {% url inicio as enlace %}
-        <td id="boton"><a id="inicio" href="{{ enlace }}">
-            &nbsp;&nbsp;Inicio </a></td>
-    </tr>
-    <tr>
-        {% url gestionar_usuarios as enlace %}
-        <td id="boton"><a id="gestionar_usuarios" href="{{ enlace }}">
-            Gestionar Usuarios</a></td>
-    </tr>
-    <tr>
-        <td id="boton"><a id="buscar" href="#">
-            &nbsp;&nbsp;Búsquedas </a></td>
-    </tr>
-    <tr>
-        {% url listar_actividades as enlace %}
-        <td id="boton"><a id="actividades" href="{{ enlace }}">
-            &nbsp;&nbsp;Actividades </a></td>
-    </tr>
-    <tr>
-        <td id="boton"><a id="asistencias" href="#">
-            &nbsp;&nbsp;Asistencias </a></td>
-    </tr>
-    <tr>
-        <td id="boton"><a id="notificaciones" href="#">
-            &nbsp;&nbsp;Notificaciones </a></td>
-    </tr>
-    <tr>
-        {% url jornadas_pendientes as enlace %}
-        <td id="boton"><a id="jornadas" href="{{ enlace }}">
-            &nbsp;&nbsp;Jornadas</a></td>
-    </tr>
-    <tr>
-        {% url finalizar_sesion as enlace %}
-        <td id="boton"><a href="{{ enlace }}">
-            &nbsp;&nbsp;Cerrar Sesión </a></td>
-    </tr>
-</table>
+<ul>
+	<li class="boton">
+    	{% url inicio as enlace %}
+    	<a id="inicio" href="{{ enlace }}">Inicio</a>
+	</li>
 
+	<li class="boton">
+    	{% url gestionar_usuarios as enlace %}
+    	<a id="gestionar_usuarios" href="{{ enlace }}">Gestionar Usuarios
+    	</a>
+	</li>
+
+    <li class="boton">
+        {% url jornadas_pendientes as enlace %}
+        <a id="jornadas" href="{{ enlace }}">Jornadas</a>
+    </li>
+
+	<li class="boton">
+    	<a id="buscar" href="#">Búsquedas</a>
+	</li>
+
+    <li class="boton">
+        {% url listar_actividades as enlace %}
+        <a id="actividades" href="{{ enlace }}">Actividades</a>
+    </li>
+
+    <li class="boton">
+        <a id="asistencias" href="#">Asistencias</a>
+    </li>
+
+    <li class="boton">
+        <a id="notificaciones" href="#">Notificaciones</a>
+    </li>
+
+    <li class="boton">
+        {% url finalizar_sesion as enlace %}
+        <a href="{{ enlace }}">Cerrar Sesión</a>
+    </li>
+</ul>
