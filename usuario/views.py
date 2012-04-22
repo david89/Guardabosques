@@ -12,6 +12,7 @@ from django.views.decorators.csrf import csrf_exempt
 from usuario.models import PerfilPendiente, Perfil
 from usuario.forms import CrearPerfilPendiente, CrearPerfil, \
                           EditarPerfilAdministrador
+from jornada.models import Jornada
 
 @staff_member_required
 def agregar_usuario(request):
@@ -201,3 +202,16 @@ def eliminar_usuario_pendiente(request, identificador):
 
     return HttpResponseRedirect(reverse('listar_usuarios_pendientes'))
 
+
+@login_required
+def jornadas_de_trabajo(request, tipo=u'pendiente'):
+    plantilla = u'usuario/jornadas_de_trabajo.html'
+    if tipo == u'pendiente':
+        jornadas = Jornada.objects.filter(estado=u'P')
+    elif tipo == u'aprobada':
+        jornadas = Jornada.objects.filter(estado=u'A')
+    elif tipo == u'rechazada':
+        jornadas = Jornada.objects.filter(estado=u'R')
+    return render_to_response(plantilla, {u'jornadas' : jornadas,
+                                          u'tipo' : tipo},
+                              context_instance=RequestContext(request))

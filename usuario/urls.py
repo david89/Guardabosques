@@ -48,5 +48,11 @@ urlpatterns = patterns(u'',
         u'django.contrib.auth.views.logout',
         {u'next_page': u'/'},
         name=u'finalizar_sesion'),
+    url(r'^jornadas_de_trabajo/(?P<tipo>\w+)$',
+        u'Guardabosques.usuario.views.jornadas_de_trabajo',
+        name=u'jornadas_de_trabajo'),
+    url(r'^jornadas_de_trabajo$',
+        u'Guardabosques.usuario.views.jornadas_de_trabajo',
+        name=u'jornadas_de_trabajo'),
 )
 

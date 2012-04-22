@@ -24,6 +24,9 @@ class Jornada(models.Model):
                                          through=u'ConstituidaPor')
     estado = models.CharField(choices=ESTADO_JORNADA, max_length=1)
 
+    def tiempo_de_trabajo(self):
+        return self.hora_fin - self.hora_inicio
+
     def save(self, *args, **kwargs):
         if self.hora_fin < self.hora_inicio:
             raise ValidationError(u'La hora inicial es mayor que la hora'\
