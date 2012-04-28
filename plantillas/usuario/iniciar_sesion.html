@@ -1,13 +1,12 @@
 {% extends "base.html" %}
-{% block content %}
+
+{% block extra_scripts %}
 <script type="text/javascript">
 	$(document).ready(function() {
-		$('#username').addClass('required');
-		$('#password').addClass('required');
-	});
+		$('#id_username').addClass('required ui-widget ui-corner-all');
+		$('#id_password').addClass('required ui-widget ui-corner-all');
 
-	$(document).ready(function() {
-		$(".form").validate({
+		$("#formulario_inicio_sesion").validate({
 			messages : {
 				username : {
 					required : 'Por favor ingrese su cédula',
@@ -20,34 +19,31 @@
 		});
 	});
 </script>
+{% endblock %}
 
-<div id="contenido_login">
-    <div id="login">
-        <form class="form" action="" method="post" id="form_login">
-            {% csrf_token %}
-            <table id="login_table">
-                <tr>
-                    <td>Usuario:</td>
-                    <td><input type="text" name="username" id="username" /></td>
-                </tr>
-                <tr>
-                    <td>Clave:</td>
-                    <td><input type="password" name="password" id="password" /></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td><input type="image"
-                            src="{{ STATIC_URL }}imagenes/entrar.png" id="submit"
-                            width=60px height=40px></td>
-                    </tr>
-            </table>
-        </form>
+{% block contenido %}
+<div id="contenido_inicio_sesion">
+	<div id="formulario"> 
+	    <form action="#" method="post" id="formulario_inicio_sesion">
+	        {% csrf_token %}
+	
+	        {% for campo in form %}
+	        <div class="campo_formulario"> 
+	        	<label for="{{ campo.name }}">{{ campo.label }}:</label> {{ campo }}
+	        </div>
+	      	{% endfor %}
+	
+			<input type="image"
+	         		src="{{ STATIC_URL }}imagenes/entrar.png"
+	                id="submit" />
+	
+			{% if form.errors %}
+	    	<p class="error">Usuario o Contraseña Inválidos</p>
+	    	{% endif %}
+	    </form>
+	    <div style="clear: both"></div>
+	</div>
 
-        <a href="javascript:popup()">¿Olvidó su contraseña?</a> 
-        {% if form.errors %}
-            <p class="error">Usuario o Contraseña Inválidos</p>
-        {% endif %}
-    </div>
+    <a href="javascript:popup()">¿Olvidó su contraseña?</a> 
 </div>
 {% endblock%}
-

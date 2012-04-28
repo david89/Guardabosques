@@ -1,0 +1,21 @@
+<form action="{{ enlace }}" method="POST" id="{{ id_formulario }}">
+	{% if formulario.errors %}
+	<p>Por favor corrija los siguientes errores</p>
+	{% for error in formulario.non_field_errors %}
+	{{ error }}
+	{% endfor %}
+	{% endif %}
+
+    {% csrf_token %}
+
+    {% for campo in formulario %}
+    <div class="campo_formulario">
+    	<label for="{{ campo.name }}">{{ campo.label }}:</label> {{ campo }}
+    	{% for error in campo.errors %}
+    	<label class="ui-state-error" for="{{ campo.name }}" generated="true">{{ error }}</label>
+    	{% endfor %}
+    </div>
+  	{% endfor %}
+
+    <input id="id_submit" type="submit" value="{{ enviar }}">
+</form>

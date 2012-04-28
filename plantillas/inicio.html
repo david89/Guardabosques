@@ -1,26 +1,33 @@
 {% extends "base.html" %}
-{% block content %}
+
+{% block contenido %}
 <div id="principal_superior"></div>
 <div id="principal_centro">
-    <div id="menu">
+    <div class="menu col_2">
     {% block menu %}
     {% endblock %}
     </div>
 
-    <div id="contenido_superior"></div>
-    <div id="contenido_centro">
-        {% block contenido_centro %}
-        <div id="contenedor_central">
-        <h2>¡Bienvenido al sistema de guardabosques!</h2>
-        <center>
-            <p>Aquí va un mensaje interesante. Yo pondría ¿Qué es Guardabosques? Misión, visión, objetivos, etc. Este mensaje es largo para probar la capacidad de caracteres por línea en el cuerpo de los mensajes.
-            </p>
-        </center>
-        </div>
-        {% endblock %}
-    </div>
-    <div id="contenido_inferior"></div>
+	<div class="col_10">
+	    <div id="contenido_superior"></div>
+	    <div id="contenido_centro">
+	        {% block contenido_centro %}
+	        <h2>¡Bienvenido al sistema de guardabosques!</h2>
+        	<p>Este es el sistema para administración de Guardabosques.</p>
+        	<p>En el menú izquierdo posee las siguientes funciones:</p>
+        	<p><strong>Inicio:</strong> permite volver a esta página.</p>
+        	<p><strong>Gestionar usuarios:</strong> para agregar nuevos usuarios Guardabosques.</p>
+        	<p><strong>Jornadas:</strong> permite aprobar o rechazar jornadas de usuarios Guardabosques.</p>
+        	<p><strong>Búsqueda:</strong> para buscar usuarios Guardabosques de acuerdo a ciertos criterios.</p>
+        	<p><strong>Actividades:</strong> permite administrar las actividades que pueden realizar los usuarios Guardabosques.</p>
+        	<p><strong>Asistencias:</strong> permite aprobar o rechazar las asistencias de los usuarios Guardabosques.</p>
+        	<p><strong>Notificaciones:</strong> para enviar notificaciones a los usuarios Guardabosques.</p>
+			<p><strong>Cerrar sesión:</strong> para finalizar la sesión en el sistema.</p>
+	        {% endblock %}
+	    </div>
+	    <div id="contenido_inferior"></div>
+	</div>
+	<div style="clear: both"></div>
 </div>
 <div id="principal_inferior"></div>
 {% endblock %}
-

@@ -29,18 +29,15 @@
             src="{{ STATIC_URL }}js/jquery.cycle.all.js"></script>
         <script type="text/javascript"
             src="{{ STATIC_URL }}js/init.js"></script>
+        {% block extra_scripts %}
+       	{% endblock %}
     </head>
 
-    <script>
-        $(document).ready(function() {
-            $('#cuerpo').fadeIn(1000);
-        });
-    </script>
     <body>
-        <div id="cuerpo" style="display: none;">
-            <div id="encabezado"></div>
-            <div id="contenedor_principal">
-                {% block content %}
+        <div id="contenedor" class="contenedor_12">
+        	<div id="encabezado"></div>
+            <div id="contenido">
+                {% block contenido %}
                 {% endblock %}
             </div>
         </div>

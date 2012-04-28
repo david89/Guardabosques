@@ -1,35 +1,12 @@
 {% extends "inicio_coordinador.html" %}
 
 {% block contenido_centro %}
+<h2>Editar usuario {{ usuario.usuario.get_full_name }}</h2>
 
-<div class="contenido_titulo">
-    <h2>Editar usuario {{ usuario.usuario.get_full_name }}</h2>
+<div id="contenido_editar_usuario_administrador">
+	<div id="formulario">
+	    {% url editar_usuario_administrador usuario.pk as enlace %}
+	    {% include "formulario/formulario.html" with formulario=formulario enlace=enlace id_formulario="formulario_editar_usuario_administrador" enviar="Editar usuario" %}
+    </div>
 </div>
-
-{% if formulario.non_field_errors or error %}
-    <p style="color: red;">Por favor corrija los siguientes errores</p>
-    <ul class="errorList">
-        {% if error %}
-            <li>{{ error }}</li>
-        {% endif %}
-        {% for error_formulario in formulario.non_field_errors %}
-            <li>{{ error_formulario }}</li>
-        {% endfor %}
-    </ul>
-{% endif %}
-
-<center>
-    {% url editar_usuario_administrador usuario.pk as enlace %}
-    <form class="formulario" action="{{ enlace }}" method="POST">
-        {% csrf_token %}
-        <table>
-            {{ formulario.as_table }}
-        </table>
-        <input
-            class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
-            type="submit" value="Editar usuario">
-    </form>
-</center>
-
 {% endblock %}
-

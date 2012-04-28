@@ -1,13 +1,5 @@
 {% extends "inicio_estudiante.html" %}
 
-{% block menu %}
-<ul>
-	<li class="boton">
-    	<a id="inicio" href="#">Registrar usuario</a>
-	</li>
-</ul>
-{% endblock %}
-
 {% block extra_scripts %}
 <script type="text/javascript">
     $.validator.addMethod("carne_valido",
@@ -27,17 +19,17 @@
 
                             return this.optional(elemento) || re.test(valor);
                           },
-                          "Use el formato: 111-2222222");
+                          "Use el formato: 212-9063535");
     $.validator.addMethod("clave_valida",
                           function(valor, elemento) {
-                            return valor.length >= 6;
+                            return valor.length == 0 || valor.length >= 6;
                           },
                           "Su clave debe ser mayor de 5 caracteres");
 
 	$(document).ready(function() {
 		$('#id_cedula').addClass('ui-widget ui-corner-all');
 		$('#id_nombres').addClass('ui-widget ui-corner-all');
-		$('#id_apellidos').addClass('ui-widget ui-corner-all');
+		$('#id_apellidos').addClass('ui-widget ui-corner-all required');
 		$('#id_clave').addClass('ui-widget ui-corner-all');
 		$('#id_confirmar_clave').addClass('ui-widget ui-corner-all');
 		$('#id_carne').addClass('ui-widget ui-corner-all');
@@ -49,10 +41,9 @@
 		$('#id_carrera').addClass('ui-widget ui-corner-all');
 		$('#id_submit').addClass('ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only');
 	});
-    
 
 	$(document).ready(function() {
-		$("#formulario_registrar_usuario").validate({
+		$("#formulario_modificar_perfil").validate({
             rules: {
                 cedula: {
                     required: true,
@@ -109,13 +100,12 @@
 {% endblock %}
 
 {% block contenido_centro %}
-<h2>Registrar Usuario</h2>
+<h2>Modificar perfil</h2>
 
-<div id="contenido_registrar_usuario">
+<div id="contenido_modificar_perfil">
 	<div id="formulario">
-	    {% url registrar_usuario as enlace %}
-	    {% include "formulario/formulario.html" with formulario=formulario enlace=enlace id_formulario="formulario_registrar_usuario" enviar="Registrar usuario" %}
+	    {% url modificar_perfil as enlace %}
+	    {% include "formulario/formulario.html" with formulario=formulario enlace=enlace id_formulario="formulario_modificar_perfil" enviar="Modificar perfil" %}
     </div>
 </div>
 {% endblock %}
-\
