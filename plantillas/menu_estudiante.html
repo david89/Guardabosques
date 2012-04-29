@@ -10,8 +10,9 @@
     	</a>
 	</li>
 
-	<li class="boton">
-    	<a id="buscar" href="#">Jornadas</a>
+    <li class="boton">
+        {% url administrar_jornadas as enlace %}
+        <a id="administrar_jornadas" href="{{ enlace }}">Jornadas</a>
 	</li>
 
 	<li class="boton">
