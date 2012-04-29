@@ -16,7 +16,7 @@ from usuario.forms import CrearPerfilPendiente, CrearPerfil, EditarPerfil,\
                           EditarPerfilAdministrador
 from jornada.models import Jornada
 
-def enviar_correo_usuario_pendiente(perfil, correo):
+def enviar_correo_usuario(perfil, correo):
     mensaje = EmailMultiAlternatives(perfil.asunto_correo(),
                                      perfil.mensaje_correo(),
                                      to=[correo])
@@ -107,7 +107,7 @@ def registrar_usuario(request, verificador):
 
             # Se intenta enviar un correo a la persona.
             try:
-                enviar_correo_usuario_pendiente(perfil, perfil.usuario.correo)
+                enviar_correo_usuario(perfil, perfil.usuario.email)
             except Exception as e:
                 perfil.delete()
                 usuario.delete()
