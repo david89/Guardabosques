@@ -44,7 +44,7 @@ def agregar_usuario(request):
 
             # Se intenta enviar un correo a la persona.
             try:
-                enviar_correo_usuario_pendiente(perfil, perfil.correo)
+                enviar_correo_usuario(perfil, perfil.correo)
             except Exception as e:
                 perfil.delete()
                 error = u'No se pudo agregar el usuario en este momento. Por '\
