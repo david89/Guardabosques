@@ -1,0 +1,110 @@
+{% extends "inicio_estudiante.html" %}
+
+{% block contenido_centro %}
+
+<div id="contenedor_central">
+
+<h2>Jornadas de trabajo</h2>
+
+<div id="menuh">
+    <ul>
+        <li>
+            {% url jornadas_de_trabajo "pendiente" as enlace %}
+            <a {% if tipo == "pendiente" %} 
+              id="primero"
+              {% endif %}
+              class="ui-button ui-widget ui-state-default
+              ui-corner-all ui-button-text-only"
+              type="submit" href="{{ enlace }}">
+                          Pendientes por aprobar
+            </a>
+        </li>
+        <li>
+            {% url jornadas_de_trabajo "aprobada" as enlace %}
+            <a {% if tipo == "aprobada" %} 
+              id="primero"
+              {% endif %}
+              class="ui-button ui-widget ui-state-default
+              ui-corner-all ui-button-text-only"
+              type="submit" href="{{ enlace }}">
+                          Aprobadas
+            </a>
+        </li>
+        <li>
+            {% url jornadas_de_trabajo "rechazada" as enlace %}
+            <a {% if tipo == "rechazada" %} 
+              id="primero"
+              {% endif %}
+              class="ui-button ui-widget ui-state-default
+              ui-corner-all ui-button-text-only"
+              type="submit" href="{{ enlace }}">
+                          Rechazadas
+            </a>
+        </li>
+    </ul>
+</div>
+
+<br />
+
+<form name="jornadas" method="POST">
+
+<br />
+{% csrf_token %}
+<table id="tabla-caja-a" summary="Lista de actividades">
+    <thead>
+        <tr>
+            <th align="center">Fecha</th>
+            <th align="center">Hora inicial</th>
+            <th align="center">Hora final</th>
+            <th align="center">Detalles de la jornada</th>
+            <th align="center">Editar</th>
+            <th align="center">Eliminar</th>
+        </tr>
+    </thead>
+    <tbody>
+
+    {% for jornada in jornadas %}
+        <tr>
+            <td align="center">{{ jornada.fecha|date:"d/m/y" }}</td>
+            <td align="center">{{ jornada.hora_inicio|time:"H:i" }}</td>
+            <td align="center">{{ jornada.hora_fin|time:"H:i" }}</td>
+            <td align="center">
+                <a class="editar" href="#">
+                    <img width=20px height=20px src="{{ STATIC_URL }}imagenes/detalles.png"/>
+                </a>
+            </td>
+            <td align="center">
+                <a class="editar" href="#">
+                    <img width=20px height=20px src="{{ STATIC_URL }}imagenes/editable.png"/>
+                </a>
+            </td>
+            <td align="center">
+                <a class="editar" href="#">
+                    <img width=20px height=20px src="{{ STATIC_URL }}imagenes/rechazada.png"/>
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+</form>
+
+<br />
+
+{% if tipo == "pendiente" %}
+
+<div style="text-align:left">
+{% url agregar_jornada as enlace %}
+<a class="agregar" href="{{ enlace }}">
+    <img width=20px height=20px src="{{ STATIC_URL }}imagenes/add.png"/>
+    Agregar jornada de trabajo
+</a>
+</div>
+
+{% endif %}
+
+</div>
+
+{% endblock %}
+
