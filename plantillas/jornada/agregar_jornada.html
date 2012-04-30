@@ -1,0 +1,72 @@
+{% extends "inicio_estudiante.html" %}
+
+{% block extra_scripts %}
+<script type="text/javascript">
+    $.validator.addMethod("fecha_valida",
+                          function(valor, elemento) {
+                            var re;
+
+                            re = /^\d{2}-\d{2}-\d{4}$/;
+
+                            return re.test(valor);
+                          },
+                          "Use el formato: DD-MM-AAAA (Ejemplo: 30-12-2012)");
+    $.validator.addMethod("hora_valida",
+                          function(valor, elemento) {
+                            var re;
+
+                            re = /^\d\d?:\d{2}$/;
+
+                            return this.optional(elemento) || re.test(valor);
+                          },
+                          "Use el formato: HH:MM (Ejemplo: 12:34)");
+
+	$(document).ready(function() {
+		$('#id_fecha').addClass('ui-widget ui-corner-all');
+		$('#id_hora_inicio').addClass('ui-widget ui-corner-all');
+		$('#id_hora_fin').addClass('ui-widget ui-corner-all');
+	});
+    
+
+	$(document).ready(function() {
+		$("#formulario_agregar_jornada").validate({
+            rules: {
+                fecha: {
+                    required: true,
+                    fecha_valida: true
+                },
+                hora_inicio: {
+                    required: true,
+                    hora_valida: true
+                },
+                hora_fin {
+                    required: true,
+                    hora_valida: true
+                }
+            },
+            messages: {
+                fecha: {
+                    required: "Por favor ingrese la fecha en que se realizó la jornada",
+                },
+                hora_inicio: {
+                    required: "Por favor ingrese la hora de inicio de la jornada"
+                },
+                hora_fin: {
+                    required: "Por favor ingrese la hora de culminación de la jornada"
+                },
+            }
+		});
+	});
+</script>
+{% endblock %}
+
+{% block contenido_centro %}
+<h2>Agregar Jornada</h2>
+
+<div id="contenido_registrar_usuario">
+	<div id="formulario">
+	    {% url agregar_jornada as enlace %}
+	    {% include "formulario/formulario.html" with formulario=formulario enlace=enlace id_formulario="formulario_agregar_jornada" enviar="Agregar Jornada" %}
+    </div>
+</div>
+{% endblock %}

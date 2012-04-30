@@ -6,6 +6,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 
 from jornada.models import Jornada, ConstituidaPor
 from usuario.models import Perfil
+from jornada.forms import FormularioJornada
 
 @staff_member_required
 def jornadas_pendientes(request):
@@ -38,4 +39,13 @@ def administrar_jornadas(request):
     jornadas = Jornada.objects.filter(perfil__id=perfil_usuario.pk)
     return render_to_response(plantilla, {u'jornadas' : jornadas, 
                                           u'tipo' : "pendiente"},
+                              context_instance=RequestContext(request))
+
+@login_required
+def agregar_jornada(request):
+    """ Agregar una nueva jornada """
+    plantilla = u'jornada/agregar_jornada.html'
+    formulario = FormularioJornada()
+    return render_to_response(plantilla, 
+                              {u'formulario' : formulario},
                               context_instance=RequestContext(request))

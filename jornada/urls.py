@@ -6,4 +6,7 @@ urlpatterns = patterns('',
     url(r'^$',
         u'Guardabosques.jornada.views.administrar_jornadas',
         name=u'administrar_jornadas'),
+    url(r'^agregar$',
+        u'Guardabosques.jornada.views.agregar_jornada',
+        name=u'agregar_jornada'),
 )
