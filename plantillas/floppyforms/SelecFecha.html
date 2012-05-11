@@ -1,0 +1,9 @@
+<input id="{{ attrs.id }}" type="text">
+<script type="text/javascript">
+    var options = {
+        dateFormat: 'dd-mm-yy'
+    };
+    $(function() {
+        $("#{{ attrs.id }}").datepicker(options); 
+    });
+</script>

@@ -1,6 +1,7 @@
 {% extends "inicio_estudiante.html" %}
 
 {% block extra_scripts %}
+
 <script type="text/javascript">
     $.validator.addMethod("fecha_valida",
                           function(valor, elemento) {
@@ -39,7 +40,7 @@
                     required: true,
                     hora_valida: true
                 },
-                hora_fin {
+                hora_fin: {
                     required: true,
                     hora_valida: true
                 }
@@ -64,7 +65,7 @@
 <h2>Agregar Jornada</h2>
 
 <div id="contenido_registrar_usuario">
-	<div id="formulario">
+    <div id="formulario">
 	    {% url agregar_jornada as enlace %}
 	    {% include "formulario/formulario.html" with formulario=formulario enlace=enlace id_formulario="formulario_agregar_jornada" enviar="Agregar Jornada" %}
     </div>
