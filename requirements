@@ -7,3 +7,5 @@ pygraphviz==1.1
 -e git+https://github.com/bitly/pyqrencode.git@1cfb23cb60ebdebeac1bd8ac50f3db17e6892aca#egg=pyqrencode-dev
 python-dateutil==1.5
 python-memcached==1.47
+django-floppyforms==0.4.7
+django-crispy-forms==1.1.3
