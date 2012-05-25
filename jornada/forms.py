@@ -7,9 +7,10 @@ Formulario para agregar una jornada
 import floppyforms as forms
 from django.forms.fields import ChoiceField
 from django.forms import RadioSelect
-from datetime import date
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, Submit, Div, ButtonHolder
 
-from Guardabosques.jornada.models import Jornada
+from Guardabosques.jornada.models import Jornada, ConstituidaPor
 from Guardabosques.jornada.models import ESTADO_JORNADA
 
 class SelecFecha(forms.DateInput):
@@ -23,9 +24,17 @@ class SelecFecha(forms.DateInput):
         )
         css = {
             'all' : (
-                'js/jquery-ui-1.8.17.custom/css/south-street/jquery-ui-1.8.17.custom.css',
-            )        
+                'js/jquery-ui-1.8.17.custom/css/south-street/'
+                'jquery-ui-1.8.17.custom.css',
+            )
         }
+
+class FormularioActividad(forms.ModelForm):
+    """ Formulario para agregar una actividad """
+    class Meta:
+        model = ConstituidaPor
+        exclude = (u'jornada')
+
 
 class FormularioEstadoJornada(forms.Form):
     """ Formulario para el estado de las jornadas """
@@ -33,11 +42,27 @@ class FormularioEstadoJornada(forms.Form):
 
 class FormularioJornada(forms.ModelForm):
     """ Formulario para agregar una jornada """
-    fecha = forms.DateField(initial=date.today, widget=SelecFecha)
+    fecha = forms.DateField(widget=SelecFecha)
+    hora_inicio = forms.TimeField(widget=forms.TimeInput)
+    hora_fin = forms.TimeField(widget=forms.TimeInput)
 
     def clean(self):
         datos = super(FormularioJornada, self).clean()
         return datos
+
+    @property
+    def helper(self):
+        """ This method is used by crispy tag """
+        helper = FormHelper()
+        helper.form_method = 'post'
+        helper.layout = Layout(
+                Div(
+                    'fecha',
+                    'hora_inicio',
+                    'hora_fin'
+                ),
+            )
+        return helper
 
     class Meta:
         model = Jornada

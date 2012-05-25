@@ -1,7 +1,18 @@
 {% extends "inicio_estudiante.html" %}
 
-{% block extra_scripts %}
+{% load crispy_forms_tags %}
 
+{% block extra_scripts %}
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.formset.min.js"></script>
+<script type="text/javascript">
+    $(function() {
+        options = {
+            addText: "Agregar actividad",
+            deleteText: "Eliminar actividad"
+        }
+        $('.form-container').formset(options);
+    })
+</script>
 <script type="text/javascript">
     $.validator.addMethod("fecha_valida",
                           function(valor, elemento) {
@@ -64,10 +75,17 @@
 {% block contenido_centro %}
 <h2>Agregar Jornada</h2>
 
-<div id="contenido_registrar_usuario">
+<div id="contenido_agregar_jornada">
     <div id="formulario">
-	    {% url agregar_jornada as enlace %}
-	    {% include "formulario/formulario.html" with formulario=formulario enlace=enlace id_formulario="formulario_agregar_jornada" enviar="Agregar Jornada" %}
+        {% crispy form_jornada %}
+        <div class="lista-actividades">
+            <h3>Lista de actividades</h3>
+            {% for form in form_actividades %}
+                <div id="{{ form.prefix }}-row" class="form-container">
+                    {% crispy form %}
+                </div>
+            {% endfor %}
+        </div>
     </div>
 </div>
 {% endblock %}

@@ -3,10 +3,11 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
+from django.forms.formsets import formset_factory
 
 from jornada.models import Jornada, ConstituidaPor
 from usuario.models import Perfil
-from jornada.forms import FormularioJornada
+from jornada.forms import FormularioJornada, FormularioActividad
 
 @staff_member_required
 def jornadas_pendientes(request):
@@ -37,7 +38,7 @@ def administrar_jornadas(request):
     plantilla = u'jornada/jornadas_de_trabajo.html'
     perfil_usuario = Perfil.objects.get(usuario__id=request.user.pk)
     jornadas = Jornada.objects.filter(perfil__id=perfil_usuario.pk)
-    return render_to_response(plantilla, {u'jornadas' : jornadas, 
+    return render_to_response(plantilla, {u'jornadas' : jornadas,
                                           u'tipo' : "pendiente"},
                               context_instance=RequestContext(request))
 
@@ -45,7 +46,9 @@ def administrar_jornadas(request):
 def agregar_jornada(request):
     """ Agregar una nueva jornada """
     plantilla = u'jornada/agregar_jornada.html'
-    formulario = FormularioJornada()
-    return render_to_response(plantilla, 
-                              {u'formulario' : formulario},
+    f_jornada = FormularioJornada()
+    f_actividades = formset_factory(FormularioActividad)
+    return render_to_response(plantilla,
+                              {u'form_jornada' : f_jornada,
+                               u'form_actividades' : f_actividades() },
                               context_instance=RequestContext(request))

@@ -409,3 +409,14 @@ a.eliminar2 {
 	border-left: 1px solid #aabcfe;
 	color: #669;
 }
+
+/* Lista de actividades */
+.lista-actividades
+{
+
+    border:2px solid;
+    border-radius:25px;
+    -moz-border-radius:25px;
+    margin: 50px;
+    background: #F1ECE3;
+}
