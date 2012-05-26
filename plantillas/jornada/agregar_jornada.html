@@ -7,6 +7,7 @@
 <script type="text/javascript">
     $(function() {
         options = {
+            prefix: '{{ form_actividades.prefix }}',
             addText: "Agregar actividad",
             deleteText: "Eliminar actividad"
         }
@@ -75,17 +76,26 @@
 {% block contenido_centro %}
 <h2>Agregar Jornada</h2>
 
+{% for message in messages %}
+    <h1>{{ message }}</h1>
+{% endfor %}
+
 <div id="contenido_agregar_jornada">
-    <div id="formulario">
-        {% crispy form_jornada %}
-        <div class="lista-actividades">
-            <h3>Lista de actividades</h3>
-            {% for form in form_actividades %}
-                <div id="{{ form.prefix }}-row" class="form-container">
-                    {% crispy form %}
-                </div>
-            {% endfor %}
-        </div>
+    <div id="formulario_jornada">
+        <form method="post" action="">
+            {% csrf_token %}
+            {{ form_actividades.management_form }}
+            {{ form_jornada|crispy }}
+            <div class="lista-actividades">
+                <h3>Lista de actividades</h3>
+                {% for form in form_actividades %}
+                    <div id="{{ form.prefix }}-row" class="form-container">
+                        {{ form|crispy }}
+                    </div>
+                {% endfor %}
+            </div>
+            <input type="submit" value="Enviar"/>
+        </form>
     </div>
 </div>
 {% endblock %}

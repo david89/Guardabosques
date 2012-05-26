@@ -3,11 +3,11 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
-from django.forms.formsets import formset_factory
+from django.forms.models import inlineformset_factory
 
-from jornada.models import Jornada, ConstituidaPor
-from usuario.models import Perfil
-from jornada.forms import FormularioJornada, FormularioActividad
+from Guardabosques.jornada.models import Jornada, ConstituidaPor
+from Guardabosques.jornada.forms import FormularioJornada, FormularioActividad
+from Guardabosques.usuario.models import Perfil
 
 @staff_member_required
 def jornadas_pendientes(request):
@@ -46,9 +46,36 @@ def administrar_jornadas(request):
 def agregar_jornada(request):
     """ Agregar una nueva jornada """
     plantilla = u'jornada/agregar_jornada.html'
-    f_jornada = FormularioJornada()
-    f_actividades = formset_factory(FormularioActividad)
+    jornada = Jornada()
+    messages = []
+    data = {
+        'form-TOTAL_FORMS': u'1',
+        'form-INITIAL_FORMS': u'0',
+        'form-MAX_NUM_FORMS': u'',
+    }
+    ConjuntoActividades = inlineformset_factory(Jornada, ConstituidaPor, extra=1, can_delete=False)
+    if request.POST:
+
+        form_jornada = FormularioJornada(request.POST)
+        form_actividades = ConjuntoActividades(request.POST)
+
+        if form_jornada.is_valid() and form_actividades.is_valid():
+            messages.append('YEAH')
+        else:
+            messages.append('fack')
+
+        # form_jornada = FormularioJornada(request.POST)
+        # form_actividades = ConjuntoActividades(request.POST)
+
+        # if contact_form.is_valid() and communication_set.is_valid():
+        #     contact_form.save()
+        #     communication_set.save()
+
+    else:
+        form_jornada = FormularioJornada(instance=jornada)
+        form_actividades = ConjuntoActividades(instance=jornada)
     return render_to_response(plantilla,
-                              {u'form_jornada' : f_jornada,
-                               u'form_actividades' : f_actividades() },
+                              {u'form_jornada' : form_jornada,
+                               u'form_actividades' : form_actividades,
+                               u'messages' : messages},
                               context_instance=RequestContext(request))
