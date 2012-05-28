@@ -3,7 +3,6 @@
 """
 Formulario para agregar una jornada
 """
-
 import datetime
 import floppyforms as forms
 from django.forms.fields import ChoiceField
@@ -13,7 +12,7 @@ from crispy_forms.layout import Layout, Submit, Div, ButtonHolder
 
 from Guardabosques.jornada.models import Jornada, ConstituidaPor
 from Guardabosques.jornada.models import ESTADO_JORNADA
-from Guardabosques.jornada.widgets import SelectTimeWidget
+from Guardabosques.jornada.widgets import SplitTimeField, SplitTimeWidget
 
 class SelecFecha(forms.DateInput):
     """ Esta clase es para el widget del calendario """
@@ -31,8 +30,6 @@ class SelecFecha(forms.DateInput):
             )
         }
 
-
-
 class FormularioActividad(forms.ModelForm):
     """ Formulario para agregar una actividad """
     class Meta:
@@ -46,13 +43,14 @@ class FormularioEstadoJornada(forms.Form):
 
 class FormularioJornada(forms.ModelForm):
     """ Formulario para agregar una jornada """
-    fecha = forms.DateField(widget=SelecFecha, initial=datetime.date.today())
-    hora_inicio = forms.TimeField(widget=SelectTimeWidget())
-    hora_fin = forms.TimeField(widget=SelectTimeWidget())
+    fecha = forms.DateField(widget=SelecFecha(), input_formats=['%d-%m-%Y'])
+    hora_inicio = SplitTimeField(widget=SplitTimeWidget)
+    hora_fin = SplitTimeField(widget=SplitTimeWidget)
 
     def clean(self):
-        datos = super(FormularioJornada, self).clean()
-        return datos
+        super(FormularioJornada, self).clean()
+        print self.cleaned_data
+        return self.cleaned_data
 
     @property
     def helper(self):

@@ -6,33 +6,13 @@
 <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.formset.min.js"></script>
 <script type="text/javascript">
     $(function() {
-        options = {
+        var options = {
             prefix: '{{ form_actividades.prefix }}',
             addText: "Agregar actividad",
             deleteText: "Eliminar actividad"
         }
         $('.form-container').formset(options);
     })
-</script>
-<script type="text/javascript">
-    $.validator.addMethod("fecha_valida",
-                          function(valor, elemento) {
-                            var re;
-
-                            re = /^\d{2}-\d{2}-\d{4}$/;
-
-                            return re.test(valor);
-                          },
-                          "Use el formato: DD-MM-AAAA (Ejemplo: 30-12-2012)");
-    $.validator.addMethod("hora_valida",
-                          function(valor, elemento) {
-                            var re;
-
-                            re = /^\d\d?:\d{2}$/;
-
-                            return this.optional(elemento) || re.test(valor);
-                          },
-                          "Use el formato: HH:MM (Ejemplo: 12:34)");
 
 	$(document).ready(function() {
 		$('#id_fecha').addClass('ui-widget ui-corner-all');
@@ -40,36 +20,6 @@
 		$('#id_hora_fin').addClass('ui-widget ui-corner-all');
 	});
     
-
-	$(document).ready(function() {
-		$("#formulario_agregar_jornada").validate({
-            rules: {
-                fecha: {
-                    required: true,
-                    fecha_valida: true
-                },
-                hora_inicio: {
-                    required: true,
-                    hora_valida: true
-                },
-                hora_fin: {
-                    required: true,
-                    hora_valida: true
-                }
-            },
-            messages: {
-                fecha: {
-                    required: "Por favor ingrese la fecha en que se realizó la jornada",
-                },
-                hora_inicio: {
-                    required: "Por favor ingrese la hora de inicio de la jornada"
-                },
-                hora_fin: {
-                    required: "Por favor ingrese la hora de culminación de la jornada"
-                },
-            }
-		});
-	});
 </script>
 {% endblock %}
 

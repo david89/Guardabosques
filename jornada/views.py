@@ -48,21 +48,17 @@ def agregar_jornada(request):
     plantilla = u'jornada/agregar_jornada.html'
     jornada = Jornada()
     messages = []
-    data = {
-        'form-TOTAL_FORMS': u'1',
-        'form-INITIAL_FORMS': u'0',
-        'form-MAX_NUM_FORMS': u'',
-    }
     ConjuntoActividades = inlineformset_factory(Jornada, ConstituidaPor, extra=1, can_delete=False)
     if request.POST:
 
+        print request.POST
         form_jornada = FormularioJornada(request.POST)
         form_actividades = ConjuntoActividades(request.POST)
 
-        if form_jornada.is_valid() and form_actividades.is_valid():
-            messages.append('YEAH')
-        else:
-            messages.append('fack')
+        # if form_jornada.is_valid(): #and form_actividades.is_valid():
+        #     messages.append('YEAH')
+        # else:
+        #     messages.append('fack')
 
         # form_jornada = FormularioJornada(request.POST)
         # form_actividades = ConjuntoActividades(request.POST)
