@@ -5,6 +5,7 @@ Formulario para agregar una jornada
 """
 import datetime
 import floppyforms as forms
+from django.forms.models import BaseInlineFormSet
 from django.forms.fields import ChoiceField
 from django.forms import RadioSelect
 from crispy_forms.helper import FormHelper
@@ -30,8 +31,28 @@ class SelecFecha(forms.DateInput):
             )
         }
 
+class BaseActividadFormSet(BaseInlineFormSet):
+    """Base formset para actividad """
+    def __init__(self, *args, **kwargs):
+        super(BaseActividadFormSet, self).__init__(*args, **kwargs)
+        for form in self.forms:
+            form.empty_permitted = False
+
 class FormularioActividad(forms.ModelForm):
     """ Formulario para agregar una actividad """
+    @property
+    def helper(self):
+        """ This method is used by crispy tag """
+        helper = FormHelper()
+        helper.form_method = 'post'
+        helper.layout = Layout(
+                Div(
+                    'actividad',
+                    'descripcion',
+                ),
+            )
+        return helper
+
     class Meta:
         model = ConstituidaPor
         exclude = (u'jornada')
@@ -49,8 +70,18 @@ class FormularioJornada(forms.ModelForm):
 
     def clean(self):
         super(FormularioJornada, self).clean()
-        print self.cleaned_data
-        return self.cleaned_data
+        cd = self.cleaned_data
+        errors = []
+        if 'fecha' in cd:
+            if cd['fecha'] > datetime.date.today():
+                errors.append("Introdujo una fecha futura.")
+        if 'hora_inicio' in cd and 'hora_fin' in cd:
+            if cd['hora_inicio'] >= cd['hora_fin']:
+                errors.append("La hora de inicio es mayor o igual a la hora\
+                               final.")
+        if any(errors):
+            raise forms.ValidationError(errors)
+        return cd
 
     @property
     def helper(self):

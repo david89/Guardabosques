@@ -26,10 +26,6 @@
 {% block contenido_centro %}
 <h2>Agregar Jornada</h2>
 
-{% for message in messages %}
-    <h1>{{ message }}</h1>
-{% endfor %}
-
 <div id="contenido_agregar_jornada">
     <div id="formulario_jornada">
         <form method="post" action="">
@@ -39,7 +35,8 @@
             <div class="lista-actividades">
                 <h3>Lista de actividades</h3>
                 {% for form in form_actividades %}
-                    <div id="{{ form.prefix }}-row" class="form-container">
+                    <div class="form-container">
+                        <hr />
                         {{ form|crispy }}
                     </div>
                 {% endfor %}
