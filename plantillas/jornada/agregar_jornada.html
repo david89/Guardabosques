@@ -1,0 +1,48 @@
+{% extends "inicio_estudiante.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block extra_scripts %}
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.formset.min.js"></script>
+<script type="text/javascript">
+    $(function() {
+        var options = {
+            prefix: '{{ form_actividades.prefix }}',
+            addText: "Agregar actividad",
+            deleteText: "Eliminar actividad"
+        }
+        $('.form-container').formset(options);
+    })
+
+	$(document).ready(function() {
+		$('#id_fecha').addClass('ui-widget ui-corner-all');
+		$('#id_hora_inicio').addClass('ui-widget ui-corner-all');
+		$('#id_hora_fin').addClass('ui-widget ui-corner-all');
+	});
+    
+</script>
+{% endblock %}
+
+{% block contenido_centro %}
+<h2>Agregar Jornada</h2>
+
+<div id="contenido_agregar_jornada">
+    <div id="formulario_jornada">
+        <form method="post" action="">
+            {% csrf_token %}
+            {{ form_actividades.management_form }}
+            {{ form_jornada|crispy }}
+            <div class="lista-actividades">
+                <h3>Lista de actividades</h3>
+                {% for form in form_actividades %}
+                    <div class="form-container">
+                        <hr />
+                        {{ form|crispy }}
+                    </div>
+                {% endfor %}
+            </div>
+            <input type="submit" value="Enviar"/>
+        </form>
+    </div>
+</div>
+{% endblock %}

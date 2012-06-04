@@ -1,0 +1,9 @@
+<input id="{{ attrs.id }}" type="{{ type }}" name="{{ name }}" {% if value %}value="{{ value }}"{% endif %} style="width: 100px;">
+<script type="text/javascript">
+  $(document).ready(function() {
+    var options = {
+      dateFormat: 'dd-mm-yy'
+    };
+    $('#{{ attrs.id }}').datepicker(options);
+  });
+</script>

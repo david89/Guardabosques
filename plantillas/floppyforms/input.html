@@ -1,0 +1,6 @@
+<input {% for attr in attrs.items %}
+         {{ attr.0 }}="{{ attr.1 }}"
+       {% endfor %}
+       type="{{ type }}"
+       name="{{ name }}"
+       {% if value %}value="{{ value }}"{% endif %}>

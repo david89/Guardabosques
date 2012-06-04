@@ -3,9 +3,9 @@ from usuario.models import Perfil
 from django.db import models
 
 ESTADO_JORNADA = (
-    (u'P', u'Pendiente'),       
-    (u'A', u'Aprobada'),       
-    (u'R', u'Rechazada'),       
+    (u'P', u'Pendiente'),
+    (u'A', u'Aprobada'),
+    (u'R', u'Rechazada'),
 )
 
 class ConstituidaPor(models.Model):
@@ -20,9 +20,9 @@ class Jornada(models.Model):
     hora_inicio = models.TimeField()
     hora_fin = models.TimeField()
     perfil = models.ForeignKey(Perfil)
-    actividades = models.ManyToManyField(Actividad, 
+    actividades = models.ManyToManyField(Actividad,
                                          through=u'ConstituidaPor')
-    estado = models.CharField(choices=ESTADO_JORNADA, max_length=1)
+    estado = models.CharField(choices=ESTADO_JORNADA, max_length=1, default=u'P')
 
     def tiempo_de_trabajo(self):
         return self.hora_fin - self.hora_inicio
