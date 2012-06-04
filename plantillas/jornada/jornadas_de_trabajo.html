@@ -79,11 +79,13 @@
                 </a>
             </td>
             <td align="center">
-                <a class="editar" href="#">
+                <a class="editar" href="{% url eliminar_jornada jornada.pk %}">
                     <img width=20px height=20px src="{{ STATIC_URL }}imagenes/rechazada.png"/>
                 </a>
             </td>
         </tr>
+    {% empty %}
+        <h1> No hay ninguna jornada pendiente </h1>
     {% endfor %}
     </tbody>
 </table>

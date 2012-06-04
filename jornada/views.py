@@ -77,3 +77,9 @@ def agregar_jornada(request):
                               {u'form_jornada' : form_jornada,
                                u'form_actividades' : form_actividades},
                               context_instance=RequestContext(request))
+
+@login_required
+def eliminar_jornada(request, jornada_pk):
+    """ Elimina una jornada pendiente """
+    Jornada.objects.get(pk=jornada_pk).delete()
+    return redirect(u'administrar_jornadas')

@@ -9,4 +9,7 @@ urlpatterns = patterns('',
     url(r'^agregar$',
         u'Guardabosques.jornada.views.agregar_jornada',
         name=u'agregar_jornada'),
+    url(r'^eliminar/(?P<jornada_pk>\d+)$',
+        u'Guardabosques.jornada.views.eliminar_jornada',
+        name=u'eliminar_jornada'),
 )
