@@ -1,3 +1,4 @@
+import datetime
 from actividad.models import Actividad
 from usuario.models import Perfil
 from django.db import models
@@ -25,7 +26,12 @@ class Jornada(models.Model):
     estado = models.CharField(choices=ESTADO_JORNADA, max_length=1, default=u'P')
 
     def tiempo_de_trabajo(self):
-        return self.hora_fin - self.hora_inicio
+        """Horas y minutos invertidos en la jornada"""
+        s1 = self.hora_inicio.strftime('%H:%M')
+        s2 = self.hora_fin.strftime('%H:%M')
+        fmt = '%H:%M'
+        td = datetime.datetime.strptime(s2, fmt) - datetime.datetime.strptime(s1, fmt)
+        return datetime.time(td.seconds/3600, (td.seconds/60)%60)
 
     def save(self, *args, **kwargs):
         if self.hora_fin < self.hora_inicio:

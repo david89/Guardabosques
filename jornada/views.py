@@ -36,6 +36,7 @@ class DetallesJornada(DetailView):
             context[u'plantilla_base'] = u'inicio_coordinador.html'
         else:
             context[u'plantilla_base'] = u'inicio_estudiante.html'
+        context[u'horas_totales'] = context[u'jornada'].tiempo_de_trabajo()
         return context
 
 def descripcion_jornada(request, identificador):
