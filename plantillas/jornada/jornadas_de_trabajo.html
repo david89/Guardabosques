@@ -69,7 +69,7 @@
             <td align="center">{{ jornada.hora_inicio|time:"H:i" }}</td>
             <td align="center">{{ jornada.hora_fin|time:"H:i" }}</td>
             <td align="center">
-                <a class="editar" href="#">
+                <a class="editar" href="{% url detalles_jornada jornada.pk %}">
                     <img width=20px height=20px src="{{ STATIC_URL }}imagenes/detalles.png"/>
                 </a>
             </td>

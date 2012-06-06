@@ -1,4 +1,5 @@
-{% extends "inicio_coordinador.html" %}
+{% extends plantilla_base %}
+
 {% block contenido_centro %}
 
 <style type="text/css">
@@ -7,26 +8,27 @@
 <div id="contenedor_central">
 
 <div class="contenido_titulo">
-    <h2>Descripción de actividad</h2>
+    <h2>Descripción de la jornada</h2>
 </div>
 
-<div align="left">
-<ul>
-{% for detalle in detalles %}
-    <li>
-        {{ detalle.actividad }}
-        <br />
-        <p>
-        {{ detalle.descripcion }}
-        </p>
-    </li>
-{% endfor %}
-</ul>
-
+{{ jornada.fecha|date:"d-m-Y" }}
+{#  #}
+{# <div align="left"> #}
+{# <ul> #}
+{# {% for detalle in detalles %} #}
+{#     <li> #}
+{#         {{ detalle.actividad }} #}
+{#         <br /> #}
+{#         <p> #}
+{#         {{ detalle.descripcion }} #}
+{#         </p> #}
+{#     </li> #}
+{# {% endfor %} #}
+{# </ul> #}
+{#  #}
 </div>
 
-{% url jornadas_pendientes as enlace %}
-<a class="volver" href="{{ enlace }}">
+<a class="volver" href="{% url administrar_jornadas %}">
     <img width=20px height=20px src="{{ STATIC_URL }}imagenes/salida.png"/>
     Volver
 </a>

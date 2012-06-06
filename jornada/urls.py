@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 
 from django.conf.urls.defaults import *
+from django.views.generic import DetailView
+
+from Guardabosques.jornada.models import Jornada
+from Guardabosques.jornada.views import DetallesJornada
 
 urlpatterns = patterns('',
     url(r'^$',
@@ -12,4 +16,7 @@ urlpatterns = patterns('',
     url(r'^eliminar/(?P<jornada_pk>\d+)$',
         u'Guardabosques.jornada.views.eliminar_jornada',
         name=u'eliminar_jornada'),
+    url(r'^detalles/(?P<pk>\d+)$',
+        DetallesJornada.as_view(template_name='jornada/descripcion_jornada.html'),
+        name=u'detalles_jornada'),
 )

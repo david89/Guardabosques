@@ -4,7 +4,7 @@ from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from django.forms.models import inlineformset_factory
-from django.forms import ValidationError
+from django.views.generic import DetailView
 
 from Guardabosques.jornada.models import Jornada, ConstituidaPor
 from Guardabosques.jornada.forms import FormularioJornada, FormularioActividad,\
@@ -25,11 +25,30 @@ def jornadas_pendientes(request):
     return render_to_response(plantilla, {u'jornadas' : jornadas},
                               context_instance=RequestContext(request))
 
+
+class DetallesJornada(DetailView):
+    context_object_name = u'jornada'
+    model = Jornada
+
+    def get_context_data(self, **kwargs):
+        context = super(DetallesJornada, self).get_context_data(**kwargs)
+        if self.request.user.is_staff:
+            context[u'plantilla_base'] = u'inicio_coordinador.html'
+        else:
+            context[u'plantilla_base'] = u'inicio_estudiante.html'
+        return context
+
 def descripcion_jornada(request, identificador):
     plantilla = u'jornada/descripcion_jornada.html'
     j = Jornada.objects.get(id=identificador)
     detalles = ConstituidaPor.objects.filter(jornada=j)
-    return render_to_response(plantilla, {u'detalles' : detalles},
+    if request.user.is_staff:
+        plantilla_base = u'inicio_coordinador.html'
+    else:
+        plantilla_base = u'inicio_estudiante.html'
+    print plantilla_base
+    ctx = {u'detalles' : detalles, u'plantilla_base' : plantilla_base}
+    return render_to_response(plantilla, ctx,
                               context_instance=RequestContext(request))
 
 @login_required
@@ -83,3 +102,4 @@ def eliminar_jornada(request, jornada_pk):
     """ Elimina una jornada pendiente """
     Jornada.objects.get(pk=jornada_pk).delete()
     return redirect(u'administrar_jornadas')
+
