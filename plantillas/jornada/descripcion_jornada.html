@@ -1,4 +1,7 @@
-{% extends "inicio_coordinador.html" %}
+{% extends plantilla_base %}
+
+{% load tags_jornadas %}
+
 {% block contenido_centro %}
 
 <style type="text/css">
@@ -7,26 +10,78 @@
 <div id="contenedor_central">
 
 <div class="contenido_titulo">
-    <h2>Descripción de actividad</h2>
+    <h2>Descripción de la jornada</h2>
 </div>
 
-<div align="left">
-<ul>
-{% for detalle in detalles %}
-    <li>
-        {{ detalle.actividad }}
-        <br />
-        <p>
-        {{ detalle.descripcion }}
-        </p>
-    </li>
-{% endfor %}
-</ul>
+<table id="tabla-caja-a">
+    <thead>
+        <tr><th colspan="2">Información del Guardabosque</th></tr>       
+    </thead>
+    <tbody>
+        <tr>
+            <td>ID del usuario</td> <td>{{ jornada.perfil.usuario.username }}</td>
+        </tr>
+        <tr>
+            <td>Carné</td> 
+            <td>{{ jornada.perfil.carne }}</td>
+        </tr>
+        <tr>
+            <td>Nombre completo</td> 
+            <td>
+                {{ jornada.perfil.usuario.first_name }}
+                {{ jornada.perfil.usuario.last_name }}
+            </td>
+        </tr>
+    </tbody>
+</table>
 
-</div>
+<br>
 
-{% url jornadas_pendientes as enlace %}
-<a class="volver" href="{{ enlace }}">
+<table id="tabla-caja-a">
+    <thead>
+        <tr><th colspan="2">Información de la jornada</th></tr>       
+    </thead>
+    <tbody>
+        <tr>
+            <td>Fecha</td> <td>{{ jornada.fecha|date:"d-m-Y" }}</td>
+        </tr>
+        <tr>
+            <td>Hora de inicio</td> 
+            <td>{{ jornada.hora_inicio|time:"H:i" }}</td>
+        </tr>
+        <tr>
+            <td>Hora de culminación</td> 
+            <td>{{ jornada.hora_fin|time:"H:i" }}</td>
+        </tr>
+        <tr>
+            <td>Horas de trabajo</td> 
+            <td>{% total_horas jornada %}</td>
+        </tr>
+        <tr>
+            <td>Estado</td> 
+            <td>{% estado jornada %}</td>
+        </tr>
+    </tbody>
+</table>
+<br>
+
+<table id="tabla-caja-a">
+    <thead>
+        <tr><th colspan="2">Actividades realizadas</th></tr>       
+        <tr><th>Actividad</th><th>Descripción</th></tr>
+    </thead>
+    <tbody>
+        {% for actividad in jornada.actividades.all %}
+            <tr>
+                <td>{{ actividad.nombre }}</td>
+                <td>{{ actividad.descripcion }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<br>
+
+<a class="volver" href="{% url administrar_jornadas %}">
     <img width=20px height=20px src="{{ STATIC_URL }}imagenes/salida.png"/>
     Volver
 </a>
