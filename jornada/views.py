@@ -70,10 +70,13 @@ def administrar_jornadas(request):
                       {u'jornadas' : jornadas, u'tipo' : "pendiente"})
 
 @login_required
-def agregar_jornada(request):
+def agregar_jornada(request, jornada_pk=None):
     """ Agregar una nueva jornada """
     plantilla = u'jornada/agregar_jornada.html'
-    jornada = Jornada()
+    if not jornada_pk:
+        jornada = Jornada()
+    else:
+        jornada = Jornada.objects.get(pk=jornada_pk)
     ConjuntoActividades = inlineformset_factory(Jornada, ConstituidaPor, \
                                                 extra=1, \
                                                 formset=BaseActividadFormSet, \
