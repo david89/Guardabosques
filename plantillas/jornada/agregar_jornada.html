@@ -26,6 +26,7 @@
 {% block contenido_centro %}
 <h2>Agregar Jornada</h2>
 
+
 <div id="contenido_agregar_jornada">
     <div id="formulario_jornada">
         <form method="post" action="">
@@ -42,6 +43,10 @@
                 {% endfor %}
             </div>
             <input type="submit" value="Enviar"/>
+            <a class="volver" href="{% url administrar_jornadas %}">
+                <img width=20px height=20px src="{{ STATIC_URL }}imagenes/salida.png"/>
+                Volver
+            </a>
         </form>
     </div>
 </div>
