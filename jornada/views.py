@@ -75,10 +75,12 @@ def agregar_jornada(request, jornada_pk=None):
     plantilla = u'jornada/agregar_jornada.html'
     if not jornada_pk:
         jornada = Jornada()
+        num_extra=1
     else:
         jornada = Jornada.objects.get(pk=jornada_pk)
+        num_extra=0
     ConjuntoActividades = inlineformset_factory(Jornada, ConstituidaPor, \
-                                                extra=1, \
+                                                extra=num_extra, \
                                                 formset=BaseActividadFormSet, \
                                                 can_delete=False)
     if request.POST:
