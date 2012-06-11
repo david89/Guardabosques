@@ -11,8 +11,7 @@
 	</li>
 
     <li class="boton">
-        {% url jornadas_pendientes as enlace %}
-        <a id="jornadas" href="{{ enlace }}">Jornadas</a>
+        <a id="jornadas" href="{% url administrar_jornadas %}">Jornadas</a>
     </li>
 
 	<li class="boton">
