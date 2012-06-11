@@ -1,5 +1,5 @@
 from django.http import Http404, HttpResponse, HttpResponseRedirect
-from django.shortcuts import render_to_response, redirect
+from django.shortcuts import render_to_response, redirect, render
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
@@ -39,6 +39,7 @@ class DetallesJornada(DetailView):
         context[u'horas_totales'] = context[u'jornada'].tiempo_de_trabajo()
         return context
 
+@login_required
 def descripcion_jornada(request, identificador):
     plantilla = u'jornada/descripcion_jornada.html'
     j = Jornada.objects.get(id=identificador)
@@ -57,20 +58,29 @@ def administrar_jornadas(request):
     """
     Lista las jornadas que posee el usuario.
     """
-    plantilla = u'jornada/jornadas_de_trabajo.html'
-    perfil_usuario = Perfil.objects.get(usuario__id=request.user.pk)
-    jornadas = Jornada.objects.filter(perfil__id=perfil_usuario.pk)
-    return render_to_response(plantilla, {u'jornadas' : jornadas,
-                                          u'tipo' : "pendiente"},
-                              context_instance=RequestContext(request))
+    if request.user.is_staff:
+        plantilla = u'jornada/jornadas_pendientes.html'
+        jornadas = Jornada.objects.filter(estado='P')
+        return render(request, plantilla, {u'jornadas':jornadas})
+    else:
+        plantilla = u'jornada/jornadas_de_trabajo.html'
+        perfil_usuario = Perfil.objects.get(usuario__id=request.user.pk)
+        jornadas = Jornada.objects.filter(perfil__id=perfil_usuario.pk)
+        return render(request, plantilla,
+                      {u'jornadas' : jornadas, u'tipo' : "pendiente"})
 
 @login_required
-def agregar_jornada(request):
+def agregar_jornada(request, jornada_pk=None):
     """ Agregar una nueva jornada """
     plantilla = u'jornada/agregar_jornada.html'
-    jornada = Jornada()
+    if not jornada_pk:
+        jornada = Jornada()
+        num_extra=1
+    else:
+        jornada = Jornada.objects.get(pk=jornada_pk)
+        num_extra=0
     ConjuntoActividades = inlineformset_factory(Jornada, ConstituidaPor, \
-                                                extra=1, \
+                                                extra=num_extra, \
                                                 formset=BaseActividadFormSet, \
                                                 can_delete=False)
     if request.POST:

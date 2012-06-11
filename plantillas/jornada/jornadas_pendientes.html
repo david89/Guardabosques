@@ -31,8 +31,7 @@
             <td>{{ jornada.hora_inicio|time:"H:i" }}</td>
             <td>{{ jornada.hora_fin|time:"H:i" }}</td>
             <td align="center">
-                {% url descripcion_jornada jornada.pk as enlace  %}
-                <a class="editar" href="{{ enlace }}">
+                <a class="editar" href="{% url detalles_jornada jornada.pk %}">
                     <img width=20px height=20px src="{{ STATIC_URL }}imagenes/detalles.png"/>
                 </a>
             </td>
