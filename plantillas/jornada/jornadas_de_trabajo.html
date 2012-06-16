@@ -6,38 +6,23 @@
 
 <h2>Jornadas de trabajo</h2>
 
-<div id="menuh">
+<div id="links-horizontales">
     <ul>
         <li>
-            {% url jornadas_de_trabajo "pendiente" as enlace %}
-            <a {% if tipo == "pendiente" %} 
-              id="primero"
-              {% endif %}
-              class="ui-button ui-widget ui-state-default
-              ui-corner-all ui-button-text-only"
-              type="submit" href="{{ enlace }}">
+            <a class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+                href="{% url administrar_jornadas 'pendientes' %}">
                           Pendientes por aprobar
             </a>
         </li>
         <li>
-            {% url jornadas_de_trabajo "aprobada" as enlace %}
-            <a {% if tipo == "aprobada" %} 
-              id="primero"
-              {% endif %}
-              class="ui-button ui-widget ui-state-default
-              ui-corner-all ui-button-text-only"
-              type="submit" href="{{ enlace }}">
+            <a class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+                href="{% url administrar_jornadas 'aprobadas' %}">
                           Aprobadas
             </a>
         </li>
         <li>
-            {% url jornadas_de_trabajo "rechazada" as enlace %}
-            <a {% if tipo == "rechazada" %} 
-              id="primero"
-              {% endif %}
-              class="ui-button ui-widget ui-state-default
-              ui-corner-all ui-button-text-only"
-              type="submit" href="{{ enlace }}">
+            <a class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+                href="{% url administrar_jornadas 'rechazadas' %}">
                           Rechazadas
             </a>
         </li>
@@ -97,8 +82,7 @@
 {% if tipo == "pendiente" %}
 
 <div style="text-align:left">
-{% url agregar_jornada as enlace %}
-<a class="agregar" href="{{ enlace }}">
+<a class="agregar" href="{% url agregar_jornada %}">
     <img width=20px height=20px src="{{ STATIC_URL }}imagenes/add.png"/>
     Agregar jornada de trabajo
 </a>

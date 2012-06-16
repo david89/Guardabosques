@@ -54,20 +54,25 @@ def descripcion_jornada(request, identificador):
                               context_instance=RequestContext(request))
 
 @login_required
-def administrar_jornadas(request):
+def administrar_jornadas(request, tipo_jornada=None):
     """
     Lista las jornadas que posee el usuario.
     """
-    if request.user.is_staff:
-        plantilla = u'jornada/jornadas_pendientes.html'
-        jornadas = Jornada.objects.filter(estado='P')
-        return render(request, plantilla, {u'jornadas':jornadas})
-    else:
-        plantilla = u'jornada/jornadas_de_trabajo.html'
-        perfil_usuario = Perfil.objects.get(usuario__id=request.user.pk)
-        jornadas = Jornada.objects.filter(perfil__id=perfil_usuario.pk)
-        return render(request, plantilla,
-                      {u'jornadas' : jornadas, u'tipo' : "pendiente"})
+    plantilla = u'jornada/jornadas_de_trabajo.html'
+    tipo = tipo_jornada[0].upper()
+    perfil_usuario = Perfil.objects.get(usuario__id=request.user.pk)
+    jornadas = Jornada.objects.filter(perfil__id=perfil_usuario.pk, estado=tipo)
+    return render(request, plantilla,
+                    {u'jornadas' : jornadas, u'tipo' : "pendiente"})
+
+@staff_member_required
+def moderar_jornadas(request):
+    """
+    Lista las jornadas que posee el usuario.
+    """
+    plantilla = u'jornada/jornadas_pendientes.html'
+    jornadas = Jornada.objects.filter(estado='P')
+    return render(request, plantilla, {u'jornadas':jornadas})
 
 @login_required
 def agregar_jornada(request, jornada_pk=None):
@@ -84,9 +89,8 @@ def agregar_jornada(request, jornada_pk=None):
                                                 formset=BaseActividadFormSet, \
                                                 can_delete=False)
     if request.POST:
-
-        form_jornada = FormularioJornada(request.POST)
-        form_actividades = ConjuntoActividades(request.POST)
+        form_jornada = FormularioJornada(request.POST, instance=jornada)
+        form_actividades = ConjuntoActividades(request.POST, instance=jornada)
 
         if form_jornada.is_valid():
             jornada = form_jornada.save(commit=False)
@@ -98,7 +102,7 @@ def agregar_jornada(request, jornada_pk=None):
             if form_actividades.is_valid():
                 jornada.save()
                 form_actividades.save()
-                return redirect(u'administrar_jornadas')
+                return redirect(u'administrar_jornadas', tipo_jornada=u'pendientes')
 
     else:
         form_jornada = FormularioJornada(instance=jornada)
@@ -112,5 +116,5 @@ def agregar_jornada(request, jornada_pk=None):
 def eliminar_jornada(request, jornada_pk):
     """ Elimina una jornada pendiente """
     Jornada.objects.get(pk=jornada_pk).delete()
-    return redirect(u'administrar_jornadas')
+    return redirect(u'administrar_jornadas', tipo_jornada=u'pendientes')
 

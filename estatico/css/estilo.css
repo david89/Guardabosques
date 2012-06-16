@@ -420,3 +420,27 @@ a.eliminar2 {
     margin: 50px;
     background: #F1ECE3;
 }
+
+/* JORNADA */
+#links-horizontales ul
+{
+    margin:0;
+    padding:0;
+}
+
+#links-horizontales li {
+    float:left;
+    margin:0;
+    padding:0;
+    list-style-type: none;
+    white-space: nowrap;
+}
+
+#links-horizontales li a
+{
+    list-style-type: none;
+    padding: 0 18px;
+    font-size: 0.8em;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}

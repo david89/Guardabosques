@@ -5,6 +5,7 @@ Formulario para agregar una jornada
 """
 import datetime
 import floppyforms as forms
+import settings
 from django.forms.models import BaseInlineFormSet
 from django.forms.fields import ChoiceField
 from django.forms import RadioSelect
@@ -64,7 +65,7 @@ class FormularioEstadoJornada(forms.Form):
 
 class FormularioJornada(forms.ModelForm):
     """ Formulario para agregar una jornada """
-    fecha = forms.DateField(widget=SelecFecha(), input_formats=['%d-%m-%Y'])
+    fecha = forms.DateField(widget=SelecFecha(), input_formats=settings.DATE_INPUT_FORMATS)
     hora_inicio = SplitTimeField(widget=SplitTimeWidget)
     hora_fin = SplitTimeField(widget=SplitTimeWidget)
 

@@ -8,6 +8,9 @@ from Guardabosques.jornada.views import DetallesJornada
 
 urlpatterns = patterns('',
     url(r'^$',
+        u'Guardabosques.jornada.views.moderar_jornadas',
+        name=u'moderar_jornadas'),
+    url(r'^(?P<tipo_jornada>\w+)/$',
         u'Guardabosques.jornada.views.administrar_jornadas',
         name=u'administrar_jornadas'),
     url(r'^agregar$',
